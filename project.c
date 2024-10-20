@@ -1,16 +1,5 @@
 /*
   Super Shop Management System
-
-  Name: Abdullah Al Noman
-  ID: 232-35-003
-
-  Name: Adnan Iqbal
-  ID: 232-35-024
-
-  Name: Rashedul Islam
-  ID: 232-35-066
-  
-  Section: A2
 */
 
 #include<stdio.h>
