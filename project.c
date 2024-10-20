@@ -121,7 +121,7 @@ do{
             break;
     }
 // asking user if he wants to stay or not
-        printf("\nDo you want to stay in the Customer Menu? (Y/N): ");
+        printf(BOLD_GREEN"\nDo you want to stay in the Customer Menu? (Y/N): "RESET);
         scanf(" %c", &stay);  // the space before %c to consume any leftover newline character
 
     } while (stay == 'Y' || stay == 'y');
@@ -269,7 +269,7 @@ void addProduct(){
     scanf("%f", &p1.Quantity);
     getchar();
     fprintf(file,"%d\t %s\t %s\t %.2f\t %.2f \n",p1.ID, p1.category, p1.name, p1.price, p1.Quantity);
-    printf(BLUE"\nItem Successfully Added. Do you want to add more? (Y/N):"RESET);
+    printf(BOLD_CYAN"\nItem Successfully Added. Do you want to add more? (Y/N):"RESET);
     scanf(" %c", &choice);
     }while (choice =='Y'|| choice =='y');
     fclose(file);
@@ -306,7 +306,12 @@ void searchProduct() {
 
         while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF) {
             if (strcasecmp(p1.category, searchTerm) == 0) {
-                printf("%d\t%s\t%s\t%.2f\t%.2f\n", p1.ID, p1.category, p1.name, p1.price, p1.quantity);
+                printf("ID: %d\t\n", p1.ID);
+                printf("Category: %s\t\n", p1.category);
+                printf("Name: %s\t\n", p1.name);
+                printf("Price: %.2f\t\n", p1.price);
+                printf("Quantity: %.2f\n\n", p1.quantity);
+
                 found = 1;
             }
         }
@@ -317,7 +322,11 @@ void searchProduct() {
 
         while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF) {
             if (strcasecmp(p1.name, searchTerm) == 0) {
-                printf("%d\t%s\t%s\t%.2f\t%.2f\n", p1.ID, p1.category, p1.name, p1.price, p1.quantity);
+                printf("ID: %d\t\n", p1.ID);
+                printf("Category: %s\t\n", p1.category);
+                printf("Name: %s\t\n", p1.name);
+                printf("Price: %.2f\t\n", p1.price);
+                printf("Quantity: %.2f\n", p1.quantity);
                 found = 1;
             }
         }
@@ -369,15 +378,15 @@ void viewProduct() {
     for (int i = 0; i < count; i++) {
         printf(BOLD_GREEN"\nCategory: %s\n"RESET, products[i].category);
         printf("ID: %d\n", products[i].ID);
-        printf(BOLD_CYAN"Name: %s\n"RESET, products[i].name);
+        printf(BOLD_MAGENTA"Name: %s\n"RESET, products[i].name);
         printf("Price: %.2f\n", products[i].price);
         printf("Quantity: %.2f\n", products[i].quantity);
 
         // Display all products of this category
         for (int j = i + 1; j < count; j++) {
             if (strcmp(products[i].category, products[j].category) == 0) {
-                printf(BOLD_CYAN"ID: %d\n"RESET, products[j].ID);
-                printf("Name: %s\n", products[j].name);
+                printf("ID: %d\n", products[j].ID);
+                printf(BOLD_MAGENTA"Name: %s\n"RESET, products[j].name);
                 printf("Price: %.2f\n", products[j].price);
                 printf("Quantity: %.2f\n", products[j].quantity);
 
@@ -403,14 +412,14 @@ void menu(){
     printf("*");
     Sleep(10);}
     printf("\n\n");
-  printf(CYAN"\tCurrent Date and Time: %s"RESET,ctime(&t));
+  printf(BOLD_GREEN"\tCurrent Date and Time: %s"RESET,ctime(&t));
   printf("\t");
   for(i=0; i<47; i++){
         printf(BOLD_MAGENTA"."RESET);
         Sleep(20);
     }
   printf("\n\n");
-	printf("\nPress any key to continue....\n");
+	printf(BLUE"\nPress any key to continue....\n"RESET);
   getch();
   system("cls");
 
