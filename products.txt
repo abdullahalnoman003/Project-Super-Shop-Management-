@@ -1,6 +1,8 @@
-101	 Vegetable	 Alu	 50.00	 100.00 
-102	 Soap	 Lux	 60.00	 100.00 
-103	 Toiletry	 Harpic	 90.00	 20.00 
-104	 Vegetable	 Potol	 80.00	 40.00 
-105	 Shampoo	 Dove	 360.00	 30.00 
-107	 Oil	 Musterd Oil	 280.00	 40.00 
+104	Vegetable	Potol	80.00	40.00
+105	Shampoo Dove    360.00	30.00
+106	Toiletry	Harpic	90.00	20.00
+107	Vegetable	Potol	80.00	40.00
+104	Vegetable	Potol	80.00	40.00
+105	Shampoo Dove    360.00	30.00
+106	Toiletry	Harpic	90.00	20.00
+107	Vegetable	Potol	80.00	40.00

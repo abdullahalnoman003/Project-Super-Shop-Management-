@@ -30,8 +30,8 @@
 #define BOLD_CYAN   "\033[1;36m"
 #define BOLD_WHITE  "\033[1;37m"
 
-#define ADMIN_USERNAME "admin"
-#define ADMIN_PASSWORD "password"
+#define ADMIN_USERNAME "1" // Username is fixed for security
+#define ADMIN_PASSWORD "1" // Password is fixed for security
 
 void menu();
 void customer();
@@ -50,6 +50,17 @@ void editProduct();
 void generateBill();
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Starting of Functions  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Globally declaring Structure
+struct Product {
+        int ID;
+        char name[100];
+        char category[100];
+        float price;
+        float quantity;
+    };
+// Globally Declaring File pointers
+FILE *file;
+FILE *tempFile;
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    Customer Function   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void customer() {
     int i, choice;
@@ -171,24 +182,17 @@ void admin() {
     char stay;
     system("cls");  // Clear the screen
 
-    printf(BOLD_WHITE"\tWelcome back, Admin!\n"RESET);
-    for (int i = 0; i < 31; i++) {
-        printf(".");
-        Sleep(20);  // Pause to create a loading effect
-    }
-    printf("\n");
-
     do {
         system("cls");
-        printf(BOLD_GREEN"\nWhat would you like to do?\n"RESET);
-        printf("1. View Product\n");
-        printf("2. Search Product\n");
-        printf("3. Add Product\n");
-        printf("4. Delete Product\n");
-        printf("5. Edit Product\n");
-        printf("6. Generate Bill\n");
-        printf("7. Return to Main Menu\n");  // Option to return to the main menu
-        printf("Enter your choice: ");
+        printf(BOLD_GREEN"\nHey Admin! What would you like to do?\n\n"RESET);
+        printf("\t1. View Product\n");
+        printf("\t2. Search Product\n");
+        printf("\t3. Add Product\n");
+        printf("\t4. Delete Product\n");
+        printf("\t5. Edit Product\n");
+        printf("\t6. Generate Bill\n");
+        printf("\t7. Return to Main Menu\n\n");  // Option to return to the main menu
+        printf(BOLD_YELLOW"\tEnter your choice: "RESET);
         scanf("%d", &choice);
         getchar();  // Consume the newline character
 
@@ -203,7 +207,7 @@ void admin() {
                 addProduct();
                 break;
             case 4:
-                //deleteproduct();
+                deleteProduct();
                 break;
             case 5:
                 //editproduct();
@@ -226,15 +230,9 @@ void admin() {
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Adding Product  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void addProduct(){
-    struct addProduct{
-        int ID;
-        char name[100];
-        char category[100];
-        float price;
-        float Quantity;
-    }p1;
+    struct Product p1;
     char choice;
-    FILE *file;
+
     file = fopen("products.txt", "a+");
     if (file == NULL){
         printf("Error");
@@ -255,34 +253,64 @@ void addProduct(){
     scanf("%f", &p1.price);
     getchar();
     printf("Enter Quantity [pics/KG]: ");
-    scanf("%f", &p1.Quantity);
+    scanf("%f", &p1.quantity);
     getchar();
-    fprintf(file,"%d\t %s\t %s\t %.2f\t %.2f \n",p1.ID, p1.category, p1.name, p1.price, p1.Quantity);
+    fprintf(file,"%d\t %s\t %s\t %.2f\t %.2f \n",p1.ID, p1.category, p1.name, p1.price, p1.quantity);
     printf(BOLD_CYAN"\nItem Successfully Added. Do you want to add more? (Y/N):"RESET);
     scanf(" %c", &choice);
     }while (choice =='Y'|| choice =='y');
     fclose(file);
 }
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Delete Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void deleteProduct() {
+    struct Product p;
+    int idToDelete, found = 0;
+
+    file = fopen("products.txt", "r");
+    tempFile = fopen("temp.txt", "w");
+    if (file == NULL || tempFile == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf(MAGENTA"Enter Product ID to delete: "RESET);
+    scanf("%d", &idToDelete);
+
+    while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF) {
+        if (p.ID == idToDelete) {
+            found = 1;
+        } else {
+            fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    if (found) {
+        remove("products.txt");
+        rename("temp.txt", "products.txt");
+        printf(BOLD_GREEN"Product deleted successfully.\n"RESET);
+    } else {
+        remove("temp.txt");
+        printf(BOLD_RED"Product not found.\n"RESET);
+    }
+}
+
+
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Searching Product Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void searchProduct() {
-    struct Product {
-        int ID;
-        char name[100];
-        char category[100];
-        float price;
-        float quantity;
-    } p1;
-
+    struct Product p1;
     char choice;
     char searchTerm[100];
-    FILE *file;
     int found = 0;
 
     file = fopen("products.txt", "r");
     if (file == NULL) {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         return;
     }
+
     system("cls");
     printf(GREEN"Search by [C]ategory or [N]ame? -> "RESET);
     scanf(" %c", &choice);
@@ -293,14 +321,13 @@ void searchProduct() {
         fgets(searchTerm, sizeof(searchTerm), stdin);
         searchTerm[strcspn(searchTerm, "\n")] = 0;  // Remove newline character
 
+        printf(BOLD_YELLOW"\n\t<== Products in Category: %s ==>\n"RESET, searchTerm);
+        printf("ID     Name                 Price     Quantity\n");
+        printf("---------------------------------------------\n");
+
         while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF) {
             if (strcasecmp(p1.category, searchTerm) == 0) {
-                printf("ID: %d\t\n", p1.ID);
-                printf("Category: %s\t\n", p1.category);
-                printf("Name: %s\t\n", p1.name);
-                printf("Price: %.2f\t\n", p1.price);
-                printf("Quantity: %.2f\n\n", p1.quantity);
-
+                printf("%-6d %-20s %-8.2f %.2f\n", p1.ID, p1.name, p1.price, p1.quantity);
                 found = 1;
             }
         }
@@ -309,39 +336,32 @@ void searchProduct() {
         fgets(searchTerm, sizeof(searchTerm), stdin);
         searchTerm[strcspn(searchTerm, "\n")] = 0;  // Remove newline character
 
+        printf(BOLD_YELLOW"\n\t<== Products with Name: %s ==>\n"RESET, searchTerm);
+        printf("ID     Category            Price     Quantity\n");
+        printf("---------------------------------------------\n");
+
         while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF) {
             if (strcasecmp(p1.name, searchTerm) == 0) {
-                printf("ID: %d\t\n", p1.ID);
-                printf("Category: %s\t\n", p1.category);
-                printf("Name: %s\t\n", p1.name);
-                printf("Price: %.2f\t\n", p1.price);
-                printf("Quantity: %.2f\n", p1.quantity);
+                printf("%-6d %-20s %-8.2f %.2f\n", p1.ID, p1.category, p1.price, p1.quantity);
                 found = 1;
             }
         }
     } else {
-        printf("Invalid choice.\n");
+        printf(BOLD_RED"Invalid choice.\n"RESET);
     }
 
-    if (found==0) {
-        printf(BOLD_RED"No products found. :( \n"RESET);
+    if (found == 0) {
+        printf(BOLD_RED"\nNo products found. :( \n"RESET);
     }
-
     fclose(file);
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   View Product Function     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 void viewProduct() {
-    struct Product {
-    int ID;
-    char name[100];
-    char category[100];
-    float price;
-    float quantity;
-};
     struct Product products[100];  // Assuming a maximum of 100 products for simplicity
     int count = 0;
-    FILE *file;
+    int uniqueIDs[100];  // Array to track unique IDs
+    int uniqueCount = 0;
 
     file = fopen("products.txt", "r");
     if (file == NULL) {
@@ -351,35 +371,54 @@ void viewProduct() {
 
     // Read products from the file into the products array
     while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &products[count].ID, products[count].category, products[count].name, &products[count].price, &products[count].quantity) != EOF) {
-        count++;
+        // Check for duplicate IDs
+        int isUnique = 1;
+        for (int i = 0; i < uniqueCount; i++) {
+            if (products[count].ID == uniqueIDs[i]) {
+                isUnique = 0;
+                break;
+            }
+        }
+        if (isUnique) {
+            uniqueIDs[uniqueCount++] = products[count].ID;  // Add unique ID to the list
+            count++;
+        }
     }
     fclose(file);
+
     system("cls");
+
     // Check if the file was empty
     if (count == 0) {
         printf(BOLD_RED"\tNo Products Available Right Now. :( \n"RESET);
         return;
     }
+
     // Display products grouped by category
-    printf(BOLD_YELLOW"\n\tProducts by Category:\n"RESET);
-    printf(BOLD_YELLOW"\n\t_____________________\n"RESET);
+    printf(BOLD_YELLOW"\n\t<== Products by Category ==>\n"RESET);
+    printf(BOLD_YELLOW"\t___________________________\n"RESET);
 
+    // Loop through each product
     for (int i = 0; i < count; i++) {
-        printf(BOLD_GREEN"\nCategory: %s\n"RESET, products[i].category);
-        printf("ID: %d\n", products[i].ID);
-        printf(BOLD_MAGENTA"Name: %s\n"RESET, products[i].name);
-        printf("Price: %.2f\n", products[i].price);
-        printf("Quantity: %.2f\n", products[i].quantity);
-
-        // Display all products of this category
-        for (int j = i + 1; j < count; j++) {
-            if (strcmp(products[i].category, products[j].category) == 0) {
-                printf("ID: %d\n", products[j].ID);
-                printf(BOLD_MAGENTA"Name: %s\n"RESET, products[j].name);
-                printf("Price: %.2f\n", products[j].price);
-                printf("Quantity: %.2f\n", products[j].quantity);
-
+        int alreadyPrinted = 0;
+        // Check if this category has already been printed
+        for (int k = 0; k < i; k++) {
+            if (strcmp(products[i].category, products[k].category) == 0) {
+                alreadyPrinted = 1;
+                break;
             }
+        }
+        // If not printed, print all products in this category
+        if (!alreadyPrinted) {
+            printf(BOLD_GREEN"\nCategory: %s\n"RESET, products[i].category);
+            printf("ID     Name                 Price     Quantity\n");
+            printf("---------------------------------------------\n");
+            for (int j = 0; j < count; j++) {
+                if (strcmp(products[i].category, products[j].category) == 0) {
+                    printf("%-6d %-20s %-8.2f %.2f\n", products[j].ID, products[j].name, products[j].price, products[j].quantity);
+                }
+            }
+            printf("---------------------------------------------\n");
         }
     }
 }
