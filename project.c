@@ -33,7 +33,6 @@
 #define ADMIN_USERNAME "1" // Username is fixed for security
 #define ADMIN_PASSWORD "1" // Password is fixed for security
 
-
 void menu();
 void customer();
 void admin();
@@ -55,10 +54,8 @@ void addStaff();
 void modifyStaff();
 void removeStaff();
 void staffMenu();
-
-
-
-
+void viewReviews();
+void giveReview();
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Starting of Functions  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // Globally declaring Structure
@@ -70,15 +67,24 @@ struct Product
     float price;
     float quantity;
 };
-struct Staff {
+struct Staff
+{
     int id;
     char name[100];
     char username[50];
     char password[50];
 };
+struct Review
+{
+    char name[100];
+    char phoneNumber[15];
+    float rating;
+    char comments[500]; // Assuming approximately 500 characters
+};
 // Globally Declaring File pointers
 FILE *file;
 FILE *tempFile;
+
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Main Function starting   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -121,7 +127,8 @@ void menu()
     getch();
     system("cls");
 
-    do {
+    do
+    {
         system("cls");
         printf("\n");
         printf(BOLD_WHITE "                   Continue as...     \n" RESET);
@@ -140,35 +147,41 @@ void menu()
         scanf("%d", &n);
         getchar();
 
-        switch (n) {
-            case 1:
-                customer(); // Calling customer
-                break;
-            case 2:
-                system("cls");
-                int c2;
-                printf("1. Login as Staff.\n");
-                printf("2. Login as Admin.\n");
-                printf("Enter your choice: ");
-                scanf("%d", &c2);
-                getchar();
-                if (c2 == 1) {
-                    staffLogin();
-                } else if (c2 == 2) {
-                    adminLogin();
-                } else {
-                    printf("Invalid choice. Please select a valid option.\n");
-                }
-                break;
-            case 3:
-                system("cls");
-                printf(BOLD_CYAN "Thank you for visiting our shop.\n     Stay Safe. :) \n" RESET);
-                break;
-            default:
-                printf(RED "Please select a valid option.\n" RESET);
-                Sleep(2500);   // Pause to allow the user to see the message
-                system("cls"); // Clear screen
-                break;
+        switch (n)
+        {
+        case 1:
+            customer(); // Calling customer
+            break;
+        case 2:
+            system("cls");
+            int c2;
+            printf("1. Login as Staff.\n");
+            printf("2. Login as Admin.\n");
+            printf("Enter your choice: ");
+            scanf("%d", &c2);
+            getchar();
+            if (c2 == 1)
+            {
+                staffLogin();
+            }
+            else if (c2 == 2)
+            {
+                adminLogin();
+            }
+            else
+            {
+                printf("Invalid choice. Please select a valid option.\n");
+            }
+            break;
+        case 3:
+            system("cls");
+            printf(BOLD_CYAN "Thank you for visiting our shop.\n     Stay Safe. :) \n" RESET);
+            break;
+        default:
+            printf(RED "Please select a valid option.\n" RESET);
+            Sleep(2500);   // Pause to allow the user to see the message
+            system("cls"); // Clear screen
+            break;
         }
     } while (n != 3); // Loop until the user selects option 3 to exit
 }
@@ -194,18 +207,18 @@ void customer()
         system("cls");
         printf("\n");
         printf(BOLD_CYAN "What would you like to do? \n" RESET);
-        printf(BOLD_RED "-------------------------- \n\n" RESET);
-        printf(BOLD_WHITE "1.  View Product. \n" RESET);
+        printf(BOLD_RED "-------------------------------------- \n\n" RESET);
+        printf(BOLD_WHITE "\t1.  View Product. \n" RESET);
         Sleep(20);
-        printf(BOLD_WHITE "2.  Search Product. \n" RESET);
+        printf(BOLD_WHITE "\t2.  Search Product. \n" RESET);
         Sleep(20);
-        printf(BOLD_WHITE "3.  Buy Product. \n" RESET);
+        printf(BOLD_WHITE "\t3.  Buy Product. \n" RESET);
         Sleep(20);
-        printf(BOLD_WHITE "4.  Rate Our Shop. \n" RESET);
+        printf(BOLD_WHITE "\t4.  Rate Our Shop. \n" RESET);
         Sleep(20);
-        printf(BOLD_WHITE "5.  Return to Main Menu. \n\n" RESET); // Added option to return to the main menu
+        printf(BOLD_WHITE "\t5.  Return to Main Menu. \n\n" RESET); // Added option to return to the main menu
         Sleep(20);
-        printf(BOLD_RED "-------------------------- \n\n" RESET);
+        printf(BOLD_RED "-------------------------------------- \n\n" RESET);
         Sleep(20);
         printf(GREEN "Enter your choice: " RESET);
         scanf("%d", &choice);
@@ -226,11 +239,9 @@ void customer()
 
             break;
         case 4:
-            // deleteFromCart(); //calling view product
-            printf("Deleting items from cart...\n");
+            giveReview();
             break;
         case 5:
-
             return; // This will exit function and return to the main menu
         default:
             printf("Invalid choice. Please Enter valid option.\n");
@@ -307,29 +318,343 @@ void adminLogin()
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Admin  Function  After login >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void admin()
 {
-    int choice;
-    char stay;
+    int choice, opt, d;
+    char stay, choice2, stay1;
     system("cls"); // Clear the screen
 
     do
     {
         system("cls");
         printf(BOLD_GREEN "\nHey Admin! What would you like to do?\n\n" RESET);
-        printf(BOLD_RED "-------------------------- \n\n" RESET);
-        printf(BOLD_WHITE "\t1. View Product\n" RESET);
-        printf(BOLD_WHITE "\t2. Search Product\n" RESET);
-        printf(BOLD_WHITE "\t3. Add Product\n" RESET);
-        printf(BOLD_WHITE "\t4. Delete Product\n" RESET);
-        printf(BOLD_WHITE "\t5. Edit Product\n" RESET);
-        printf(BOLD_WHITE "\t6. Generate Sales Report\n" RESET);
-        printf(BOLD_WHITE "\t7. Check Low Stock.\n" RESET);
-        printf(BOLD_WHITE "\t8. Backup Data.\n" RESET);
-        printf(BOLD_WHITE "\t9. Manage Staff.\n" RESET);
-        printf(BOLD_WHITE "\t0. Return to Main Menu\n\n"RESET); // Option to return to the main menu
-        printf(BOLD_RED "-------------------------- \n\n" RESET);
+        printf(BOLD_RED "----------------------------------- \n\n" RESET);
+        printf(BOLD_WHITE "\t1. Manage Store.\n" RESET);
+        printf(BOLD_WHITE "\t2. Generate Sales Report\n" RESET);
+        printf(BOLD_WHITE "\t3. Check Low Stock.\n" RESET);
+        printf(BOLD_WHITE "\t4. Backup Data.\n" RESET);
+        printf(BOLD_WHITE "\t5. Manage Staff.\n" RESET);
+        printf(BOLD_WHITE "\t6. View Customer Review.\n" RESET);
+        printf(BOLD_WHITE "\t0. Return to Main Menu\n\n" RESET); // Option to return to the main menu
+        printf(BOLD_RED "------------------------------------ \n\n" RESET);
         printf(BOLD_YELLOW "\tEnter your choice: " RESET);
         scanf("%d", &choice);
         getchar(); // Consume the newline character
+
+        switch (choice)
+        {
+        case 0:
+            return; // This will exit the function and return to the main menu
+        case 1:
+            do
+            {
+                system("cls");
+                printf("1. View Product.\n");
+                printf("2. Search Product.\n");
+                printf("3. Add Product.\n");
+                printf("4. Delete Product.\n");
+                printf("5. Modify Product.\n");
+                printf("0. Return To Admin Menu.\n");
+                scanf("%d", &d);
+                getchar();
+                switch (d)
+                {
+                case 0:
+                    return;
+                case 1:
+                    viewProduct();
+                    break;
+                case 2:
+                    searchProduct();
+                    break;
+                case 3:
+                    addProduct();
+                    break;
+                case 4:
+                    deleteProduct();
+                    break;
+                case 5:
+                    modifyProduct();
+                    break;
+                default:
+                    printf("Please Select Valid Option!");
+                    break;
+                }
+
+            } while (stay1 == 'Y' || stay == 'y');
+
+        case 2:
+            generateSalesReport();
+            break;
+        case 3:
+            checkLowStock();
+            break;
+        case 4:
+            do
+            {
+                system("cls");
+                printf("Which Section Data you want to Backup: \n");
+                printf("1. Product. \n");
+                printf("2. Sales. \n");
+                printf("3. Staff. \n");
+                printf("4. Review. \n\n");
+                printf("Enter your choice:  ");
+                scanf("%d", &opt);
+                getchar();
+                switch (opt)
+                {
+                case 1:
+                    backupData("products.txt", "products_backup.txt");
+                    break;
+                case 2:
+                    backupData("sales.txt", "sales_backup.txt");
+                    break;
+                case 3:
+                    backupData("staff.txt", "staff_backup.txt");
+                    break;
+                case 4:
+                    backupData("review.txt", "review_backup.txt");
+                    break;
+                default:
+                    printf("Enter a Valid Option.");
+                    break;
+                }
+                printf("Do you want to back up another file? [Y/N] => ");
+                scanf(" %c", &choice2);
+            } while (choice2 == 'Y' || choice2 == 'y');
+            break;
+        case 5:
+            manageStaff();
+            break;
+        case 6:
+            viewReviews();
+            break;
+        default:
+            printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
+            break;
+        }
+        // Asking admin if they want to stay in the admin menu
+        printf(GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
+        scanf(" %c", &stay); // The space before %c to consume any leftover newline character
+    } while (stay == 'Y' || stay == 'y');
+    system("cls"); // Clear the screen
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Managing Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void manageStaff()
+{
+    int choice;
+    do
+    {
+        printf("\nStaff Management:\n");
+        printf("1. Add Staff\n");
+        printf("2. Remove Staff\n");
+        printf("3. Modify Staff\n");
+        printf("4. Return to Main Menu\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            addStaff();
+            break;
+        case 2:
+            removeStaff();
+            break;
+        case 3:
+            modifyStaff();
+            break;
+        case 4:
+            return;
+        default:
+            printf("Invalid choice. Please enter a valid option.\n");
+            break;
+        }
+    } while (choice != 4);
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Add Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void addStaff()
+{
+    struct Staff s;
+    FILE *file = fopen("staff.txt", "a+");
+    if (file == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("Enter new staff ID: ");
+    scanf("%d", &s.id);
+    printf("Enter new staff name: ");
+    scanf(" %[^\n]s", s.name); // Read the full name including spaces
+    printf("Enter new staff username: ");
+    scanf("%s", s.username);
+    printf("Enter new staff password: ");
+    scanf("%s", s.password);
+
+    fprintf(file, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
+    fclose(file);
+    printf("New staff added successfully.\n");
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Remove Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void removeStaff()
+{
+    struct Staff s;
+    int idToRemove;
+    FILE *file = fopen("staff.txt", "r");
+    FILE *tempFile = fopen("temp_staff.txt", "w");
+    if (file == NULL || tempFile == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("Enter the ID of the staff to remove: ");
+    scanf("%d", &idToRemove);
+
+    int found = 0;
+    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF)
+    {
+        if (s.id != idToRemove)
+        {
+            fprintf(tempFile, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
+        }
+        else
+        {
+            found = 1;
+        }
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    if (found)
+    {
+        remove("staff.txt");
+        rename("temp_staff.txt", "staff.txt");
+        printf("Staff removed successfully.\n");
+    }
+    else
+    {
+        remove("temp_staff.txt");
+        printf("Staff not found.\n");
+    }
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Managing Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void modifyStaff()
+{
+    struct Staff s;
+    int idToEdit;
+    FILE *file = fopen("staff.txt", "r");
+    FILE *tempFile = fopen("temp_staff.txt", "w");
+    if (file == NULL || tempFile == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("Enter the ID of the staff to edit: ");
+    scanf("%d", &idToEdit);
+
+    int found = 0;
+    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF)
+    {
+        if (s.id == idToEdit)
+        {
+            found = 1;
+            printf("Enter new staff name: ");
+            scanf(" %[^\n]s", s.name); // Read the full name including spaces
+            printf("Enter new username: ");
+            scanf("%s", s.username);
+            printf("Enter new password: ");
+            scanf("%s", s.password);
+        }
+        fprintf(tempFile, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    if (found)
+    {
+        remove("staff.txt");
+        rename("temp_staff.txt", "staff.txt");
+        printf("Staff credentials updated successfully.\n");
+    }
+    else
+    {
+        remove("temp_staff.txt");
+        printf("Staff not found.\n");
+    }
+}
+
+// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Login Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+void staffLogin()
+{
+    struct Staff s;
+    char inputUsername[50], inputPassword[50];
+    FILE *file = fopen("staff.txt", "r");
+    if (file == NULL)
+    {
+        printf(BOLD_RED "Error opening file!\n" RESET);
+        printf("Returning to Main Menu!\n");
+        Sleep(3000);
+
+        return;
+    }
+
+    printf("Staff Login\n");
+    printf("Enter Username: ");
+    scanf("%s", inputUsername);
+    printf("Enter Password: ");
+    scanf("%s", inputPassword);
+
+    int loginSuccess = 0;
+    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF)
+    {
+        if (strcmp(s.username, inputUsername) == 0 && strcmp(s.password, inputPassword) == 0)
+        {
+            loginSuccess = 1;
+            break;
+        }
+    }
+
+    fclose(file);
+
+    if (loginSuccess)
+    {
+        printf("Login successful. Welcome, %s!\n", s.name);
+        staffMenu(s.name); // Call staff menu
+    }
+    else
+    {
+        printf("Invalid credentials. Access denied.\n");
+        printf("Returning to main Menu.\n");
+        Sleep(3000);
+    }
+}
+// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Menu >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void staffMenu(const char *staffName)
+{
+    int choice;
+    char stay;
+    do
+    {
+        system("cls");
+        printf("\nWelcome, %s!\n", staffName);
+        printf("1. View Products\n");
+        printf("2. Search Products\n");
+        printf("3. Add New Product\n");
+        printf("4. Modify Product\n");
+        printf("5. Delete Product\n");
+        printf("6. Check Low Stock\n");
+        printf("7. Logout\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // Consume newline character
 
         switch (choice)
         {
@@ -343,259 +668,26 @@ void admin()
             addProduct();
             break;
         case 4:
-            deleteProduct();
-            break;
-        case 5:
             modifyProduct();
             break;
-        case 6:
-            generateSalesReport();
+        case 5:
+            deleteProduct();
             break;
-        case 7:
+        case 6:
             checkLowStock();
             break;
-        case 8:
-            backupData("products.txt", "products_backup.txt");
-            break;
-        case 9:
-            manageStaff();
-            break;
-        case 0:
-            return; // This will exit the function and return to the main menu
+        case 7:
+            return;
         default:
-            printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
+            printf("Invalid choice. Please enter a valid option.\n");
             break;
-        }
-        // Asking admin if they want to stay in the admin menu
-        printf(GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
-        scanf(" %c", &stay); // The space before %c to consume any leftover newline character
-    } while (stay == 'Y' || stay == 'y');
-    system("cls"); // Clear the screen
-}
-
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Managing Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void manageStaff() {
-    int choice;
-    do {
-        printf("\nStaff Management:\n");
-        printf("1. Add Staff\n");
-        printf("2. Remove Staff\n");
-        printf("3. Modify Staff\n");
-        printf("4. Return to Main Menu\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                addStaff();
-                break;
-            case 2:
-                removeStaff();
-                break;
-            case 3:
-                modifyStaff();
-                break;
-            case 4:
-                return;
-            default:
-                printf("Invalid choice. Please enter a valid option.\n");
-                break;
-        }
-    } while (choice != 4);
-}
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Add Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void addStaff() {
-    struct Staff s;
-    FILE *file = fopen("staff.txt", "a+");
-    if (file == NULL) {
-        printf("Error opening file!\n");
-        return;
-    }
-
-    printf("Enter new staff ID: ");
-    scanf("%d", &s.id);
-    printf("Enter new staff name: ");
-    scanf(" %[^\n]s", s.name);  // Read the full name including spaces
-    printf("Enter new staff username: ");
-    scanf("%s", s.username);
-    printf("Enter new staff password: ");
-    scanf("%s", s.password);
-
-    fprintf(file, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
-    fclose(file);
-    printf("New staff added successfully.\n");
-}
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Remove Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void removeStaff() {
-    struct Staff s;
-    int idToRemove;
-    FILE *file = fopen("staff.txt", "r");
-    FILE *tempFile = fopen("temp_staff.txt", "w");
-    if (file == NULL || tempFile == NULL) {
-        printf("Error opening file!\n");
-        return;
-    }
-
-    printf("Enter the ID of the staff to remove: ");
-    scanf("%d", &idToRemove);
-
-    int found = 0;
-    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF) {
-        if (s.id != idToRemove) {
-            fprintf(tempFile, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
-        } else {
-            found = 1;
-        }
-    }
-
-    fclose(file);
-    fclose(tempFile);
-
-    if (found) {
-        remove("staff.txt");
-        rename("temp_staff.txt", "staff.txt");
-        printf("Staff removed successfully.\n");
-    } else {
-        remove("temp_staff.txt");
-        printf("Staff not found.\n");
-    }
-}
-
-
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Managing Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void modifyStaff() {
-    struct Staff s;
-    int idToEdit;
-    FILE *file = fopen("staff.txt", "r");
-    FILE *tempFile = fopen("temp_staff.txt", "w");
-    if (file == NULL || tempFile == NULL) {
-        printf("Error opening file!\n");
-        return;
-    }
-
-    printf("Enter the ID of the staff to edit: ");
-    scanf("%d", &idToEdit);
-
-    int found = 0;
-    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF) {
-        if (s.id == idToEdit) {
-            found = 1;
-            printf("Enter new staff name: ");
-            scanf(" %[^\n]s", s.name);  // Read the full name including spaces
-            printf("Enter new username: ");
-            scanf("%s", s.username);
-            printf("Enter new password: ");
-            scanf("%s", s.password);
-        }
-        fprintf(tempFile, "%d %s %s %s\n", s.id, s.name, s.username, s.password);
-    }
-
-    fclose(file);
-    fclose(tempFile);
-
-    if (found) {
-        remove("staff.txt");
-        rename("temp_staff.txt", "staff.txt");
-        printf("Staff credentials updated successfully.\n");
-    } else {
-        remove("temp_staff.txt");
-        printf("Staff not found.\n");
-    }
-}
-
-// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Login Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-void staffLogin() {
-    struct Staff s;
-    char inputUsername[50], inputPassword[50];
-    FILE *file = fopen("staff.txt", "r");
-    if (file == NULL) {
-        printf(BOLD_RED"Error opening file!\n"RESET);
-        printf("Returning to Main Menu!\n");
-        Sleep(3000);
-        
-        return;
-    }
-
-    printf("Staff Login\n");
-    printf("Enter Username: ");
-    scanf("%s", inputUsername);
-    printf("Enter Password: ");
-    scanf("%s", inputPassword);
-
-    int loginSuccess = 0;
-    while (fscanf(file, "%d %s %s %s\n", &s.id, s.name, s.username, s.password) != EOF) {
-        if (strcmp(s.username, inputUsername) == 0 && strcmp(s.password, inputPassword) == 0) {
-            loginSuccess = 1;
-            break;
-        }
-    }
-
-    fclose(file);
-
-    if (loginSuccess) {
-        printf("Login successful. Welcome, %s!\n", s.name);
-        staffMenu(s.name);  // Call staff menu
-    } else {
-        printf("Invalid credentials. Access denied.\n");
-        printf("Returning to main Menu.\n");
-        Sleep(3000);
-    }
-}
-// // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Menu >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void staffMenu(const char* staffName) {
-    int choice;
-    char stay;
-    do {
-        system("cls");
-        printf("\nWelcome, %s!\n", staffName);
-        printf("1. View Products\n");
-        printf("2. Search Products\n");
-        printf("3. Add New Product\n");
-        printf("4. Modify Product\n");
-        printf("5. Delete Product\n");
-        printf("6. Check Low Stock\n");
-        printf("7. Logout\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        getchar();  // Consume newline character
-
-        switch (choice) {
-            case 1:
-                viewProduct();
-                break;
-            case 2:
-                searchProduct();
-                break;
-            case 3:
-                addProduct();
-                break;
-            case 4:
-                modifyProduct();
-                break;
-            case 5:
-                deleteProduct();
-                break;
-            case 6:
-                checkLowStock();
-                break;
-            case 7:
-                return;
-            default:
-                printf("Invalid choice. Please enter a valid option.\n");
-                break;
         }
 
         printf("\nDo you want to perform another action? (Y/N): ");
         scanf(" %c", &stay);
-        getchar();  // Consume newline character
+        getchar(); // Consume newline character
     } while (stay == 'Y' || stay == 'y');
 }
-
-
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Adding Product  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void addProduct()
@@ -691,49 +783,31 @@ void viewProduct()
 {
     struct Product products[100]; // Assuming a maximum of 100 products for simplicity
     int count = 0;
-    int uniqueIDs[100]; // Array to track unique IDs
-    int uniqueCount = 0;
-
     file = fopen("products.txt", "r");
     if (file == NULL)
     {
-        printf(BOLD_RED "Error opening file!\n" RESET);
+        printf("Error opening file!\n");
         return;
     }
 
-    // Read products from the file into the products array
-    while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &products[count].ID, products[count].category, products[count].name, &products[count].price, &products[count].quantity) != EOF)
+    // Reading products from the file into the products array
+    while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &products[count].ID, products[count].category, products[count].name, &products[count].price, &products[count].quantity) != EOF)
     {
-        // Check for duplicate IDs
-        int isUnique = 1;
-        for (int i = 0; i < uniqueCount; i++)
-        {
-            if (products[count].ID == uniqueIDs[i])
-            {
-                isUnique = 0;
-                break;
-            }
-        }
-        if (isUnique)
-        {
-            uniqueIDs[uniqueCount++] = products[count].ID; // Add unique ID to the list
-            count++;
-        }
+        count++;
     }
     fclose(file);
-
     system("cls");
 
     // Check if the file was empty
     if (count == 0)
     {
-        printf(BOLD_RED "\tNo Products Available Right Now. :( \n" RESET);
+        printf("\tNo Products Available Right Now. :( \n");
         return;
     }
 
     // Display products grouped by category
-    printf(BOLD_YELLOW "\n\t<== Products by Category ==>\n" RESET);
-    printf(BOLD_YELLOW "\t___________________________\n" RESET);
+    printf("\n\t<== Products by Category ==>\n");
+    printf("\t___________________________\n");
 
     // Loop through each product
     for (int i = 0; i < count; i++)
@@ -751,7 +825,7 @@ void viewProduct()
         // If not printed, print all products in this category
         if (!alreadyPrinted)
         {
-            printf(BOLD_GREEN "\nCategory: %s\n" RESET, products[i].category);
+            printf("\nCategory: %s\n", products[i].category);
             printf("ID     Name                 Price     Quantity\n");
             printf("---------------------------------------------\n");
             for (int j = 0; j < count; j++)
@@ -1071,7 +1145,7 @@ void checkLowStock()
         printf("Error opening file!\n");
         return;
     }
-    system("cls"); //clearing Screen
+    system("cls"); // clearing Screen
     printf("\nLow Stock Alert:\n");
     printf("Product ID    Name                 Category            Available Quantity\n");
     printf("-----------------------------------------------------------------------\n");
@@ -1089,17 +1163,20 @@ void checkLowStock()
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Backup Data Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-void backupData(const char *sourceFile, const char *backupFile) {
+void backupData(const char *sourceFile, const char *backupFile)
+{
     FILE *source = fopen(sourceFile, "r");
     FILE *backup = fopen(backupFile, "w");
 
-    if (source == NULL || backup == NULL) {
+    if (source == NULL || backup == NULL)
+    {
         printf("Error opening file!\n");
         return;
     }
 
     char ch;
-    while ((ch = fgetc(source)) != EOF) {
+    while ((ch = fgetc(source)) != EOF)
+    {
         fputc(ch, backup);
     }
 
@@ -1107,5 +1184,64 @@ void backupData(const char *sourceFile, const char *backupFile) {
     fclose(backup);
     printf("Backup of %s created successfully as %s\n", sourceFile, backupFile);
 }
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking Review from Customer >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void giveReview()
+{
+    struct Review r;
+    FILE *file = fopen("reviews.txt", "a+");
+    if (file == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
 
-// end 
+    printf("Enter your name: ");
+    fgets(r.name, sizeof(r.name), stdin);
+    r.name[strcspn(r.name, "\n")] = 0; // Remove newline character
+
+    printf("Enter your phone number: ");
+    fgets(r.phoneNumber, sizeof(r.phoneNumber), stdin);
+    r.phoneNumber[strcspn(r.phoneNumber, "\n")] = 0; // Remove newline character
+
+    do
+    {
+        printf("Rate our super shop (1-5): ");
+        scanf("%f", &r.rating);
+        getchar(); // Consume the newline character
+    } while (r.rating < 1 || r.rating > 5);
+
+    printf("Enter your comments (200 words max): ");
+    fgets(r.comments, sizeof(r.comments), stdin);
+    r.comments[strcspn(r.comments, "\n")] = 0; // Remove newline character
+
+    fprintf(file, "%s\t%s\t%f\t%s\n", r.name, r.phoneNumber, r.rating, r.comments);
+    fclose(file);
+
+    printf("Thank you for your feedback!\n");
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Viewing customer reviews >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void viewReviews()
+{
+    struct Review r;
+    FILE *file = fopen("reviews.txt", "r");
+    if (file == NULL)
+    {
+        printf("Error opening file!\n");
+        Sleep(2000);
+        return;
+        
+    }
+    system("cls");
+    printf("\nCustomer Reviews:\n");
+    printf("Name                     Phone Number    Rating  Comments\n");
+    printf("----------------------------------------------------------------------------\n\n");
+
+    while (fscanf(file, "%99[^\t]\t%14[^\t]\t%f\t%499[^\n]\n", r.name, r.phoneNumber, &r.rating, r.comments) != EOF)
+    {
+        printf("%-24s %-15s %-7.2f %s\n\n", r.name, r.phoneNumber, r.rating, r.comments);
+        printf("----------------------------------------------------------------------------\n\n");
+    }
+
+    fclose(file);
+}
+// end

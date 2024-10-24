@@ -1,5 +1,6 @@
-101	Vegetable	Potato	50.00	2.00
-102	Vegetable	Potol	29.00	3.00
+101	Vegetable	Potato	50.00	1.00
+102	Vegetable	Potol	29.00	2.00
 103	Vegetable	Gajor	50.00	200.00
 104	Vegetable	Korolla	60.00	47.00
 105	Soap	Lux	60.00	98.00
+401	House Holding	Floor Cleaner	100.00	20.00
