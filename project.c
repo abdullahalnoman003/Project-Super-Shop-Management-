@@ -1245,4 +1245,4 @@ void viewReviews()
 
     fclose(file);
 }
-// end
+// end of the project Super shop Management
