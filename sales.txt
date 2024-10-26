@@ -1,2 +1,5 @@
 Abdullah AL Noman	1123414	401	Floor Cleaner	2	200.00
 Abdullah AL Noman	1123414	401	Floor Cleaner	9	900.00
+logan paul	989898989	105	Lux	3	195.00
+logan paul	989898989	104	Korolla	2	120.00
+logan paul	989898989	401	Floor Cleaner	3	300.00

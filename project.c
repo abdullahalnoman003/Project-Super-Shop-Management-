@@ -86,10 +86,12 @@ FILE *tempFile;
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Main Function starting   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
 void main(void)
 {
     menu();
 }
+
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Menu Function    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void menu()
@@ -254,6 +256,7 @@ void customer()
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Admin Login Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 void adminLogin()
 {
     char username[50];
@@ -312,6 +315,7 @@ void adminLogin()
         }
     }
 }
+
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Admin  Function  After login >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void admin() {
@@ -849,6 +853,7 @@ void viewProduct()
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Searching Product Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 void searchProduct()
 {
     struct Product p1;
@@ -876,7 +881,7 @@ void searchProduct()
             fgets(searchTerm, sizeof(searchTerm), stdin);
             searchTerm[strcspn(searchTerm, "\n")] = 0; // Remove newline character
 
-            printf(BOLD_YELLOW "\n\t<== Products in Category: %s ==>\n" RESET, searchTerm);
+            printf(BOLD_YELLOW "\n\t<== Products in Category: %s ==>\n\n" RESET, searchTerm);
             printf("ID     Name                 Price     Quantity\n");
             printf("---------------------------------------------\n");
 
@@ -884,7 +889,7 @@ void searchProduct()
             {
                 if (strcasecmp(p1.category, searchTerm) == 0)
                 {
-                    printf("%-6d %-20s %-8.2f %.2f\n", p1.ID, p1.name, p1.price, p1.quantity);
+                    printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.name, p1.price, p1.quantity);
                     found = 1;
                 }
             }
@@ -895,7 +900,7 @@ void searchProduct()
             fgets(searchTerm, sizeof(searchTerm), stdin);
             searchTerm[strcspn(searchTerm, "\n")] = 0; // Remove newline character
 
-            printf(BOLD_YELLOW "\n\t<== Products with Name: %s ==>\n" RESET, searchTerm);
+            printf(BOLD_YELLOW "\n\t<== Products with Name: %s ==>\n\n" RESET, searchTerm);
             printf("ID     Category            Price     Quantity\n");
             printf("---------------------------------------------\n");
 
@@ -903,7 +908,7 @@ void searchProduct()
             {
                 if (strcasecmp(p1.name, searchTerm) == 0)
                 {
-                    printf("%-6d %-20s %-8.2f %.2f\n", p1.ID, p1.category, p1.price, p1.quantity);
+                    printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.category, p1.price, p1.quantity);
                     found = 1;
                 }
             }
@@ -926,6 +931,7 @@ void searchProduct()
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Modify Product Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 void modifyProduct() {
     struct Product p;
     int idToModify, found;
@@ -979,27 +985,22 @@ void modifyProduct() {
     // Ensure function returns control properly
     printf("Returning to main menu...\n");
 }
+
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Buy Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-void buyProduct()
-{
-
-    struct Purchase
-    {
+void buyProduct() {
+    struct Purchase {
         char customerName[100];
         char phoneNumber[15];
         int productID;
         int quantity;
         float totalPrice;
     };
-
-    struct CartItem
-    {
+    struct CartItem {
         struct Product product;
         int quantity;
         float totalPrice;
     };
-
     struct Product p;
     struct Purchase purchase;
     struct CartItem cart[100]; // Assuming a maximum of 100 items in the cart
@@ -1007,84 +1008,64 @@ void buyProduct()
     int idToBuy, quantity, found;
     float totalPrice = 0.0;
     char addMore;
-
     FILE *salesFile;
 
     system("cls");
     printf(BOLD_YELLOW "Enter your name: " RESET);
     fgets(purchase.customerName, sizeof(purchase.customerName), stdin);
     purchase.customerName[strcspn(purchase.customerName, "\n")] = 0; // Remove newline character
-
     printf(BOLD_CYAN "Enter your phone number: " RESET);
     fgets(purchase.phoneNumber, sizeof(purchase.phoneNumber), stdin);
     purchase.phoneNumber[strcspn(purchase.phoneNumber, "\n")] = 0; // Remove newline character
 
-    do
-    {
+    do {
         file = fopen("products.txt", "r");
         tempFile = fopen("temp.txt", "w");
         salesFile = fopen("sales.txt", "a+");
-        if (file == NULL || tempFile == NULL || salesFile == NULL)
-        {
+        if (file == NULL || tempFile == NULL || salesFile == NULL) {
             printf("Error opening file!\n");
             return;
         }
-
         found = 0;
         printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
         printf(BOLD_WHITE "\nEnter Product ID to buy: " RESET);
         scanf("%d", &idToBuy);
         printf(BOLD_WHITE "Enter Quantity: " RESET);
         scanf("%d", &quantity);
-
-        while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
-        {
-            if (p.ID == idToBuy)
-            {
-                if (p.quantity >= quantity)
-                {
+        while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF) {
+            if (p.ID == idToBuy) {
+                if (p.quantity >= quantity) {
                     found = 1;
                     p.quantity -= quantity;
                     float itemTotalPrice = quantity * p.price;
                     totalPrice += itemTotalPrice;
-
                     cart[cartCount].product = p;
                     cart[cartCount].quantity = quantity;
                     cart[cartCount].totalPrice = itemTotalPrice;
                     cartCount++;
-
                     fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
                     fprintf(salesFile, "%s\t%s\t%d\t%s\t%d\t%.2f\n", purchase.customerName, purchase.phoneNumber, p.ID, p.name, quantity, itemTotalPrice);
-
                     printf(CYAN "\nProduct Purchased: %s\n" RESET, p.name);
                     printf(MAGENTA "Total Price for this item: %.2f\n" RESET, itemTotalPrice);
                     printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
-                }
-                else
-                {
+                } else {
                     printf(BOLD_RED " Sorry :( \nNot enough quantity available.\n" RESET);
                     found = 1;
                     fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
                 }
-            }
-            else
-            {
+            } else {
                 fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
             }
         }
-
-        if (!found)
-        {
+        if (!found) {
             printf(BOLD_RED "Sorry :( Product not found. \nPlease try again with valid ProductID.>>\n" RESET);
         }
-
         fclose(file);
         fclose(tempFile);
         fclose(salesFile);
-
         remove("products.txt");
         rename("temp.txt", "products.txt");
-        printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
+
         printf("\nDo you want to add another item? (Y/N): ");
         scanf(" %c", &addMore);
     } while (addMore == 'Y' || addMore == 'y');
@@ -1092,14 +1073,38 @@ void buyProduct()
     printf(BOLD_BLUE "\nFinal Bill:\n" RESET);
     printf(BOLD_YELLOW "ID     Name                 Category            Quantity  Price\n" RESET);
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
-    for (int i = 0; i < cartCount; i++)
-    {
+    for (int i = 0; i < cartCount; i++) {
         printf("%-6d %-20s %-20s %-9d %.2f\n", cart[i].product.ID, cart[i].product.name, cart[i].product.category, cart[i].quantity, cart[i].totalPrice);
     }
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
     printf("Total Price: %.2f\n", totalPrice);
-}
 
+    // suparshop may have a vat so added VAT percentage input
+    float vatPercentage, amountGiven, change, vatAmount;
+    printf("Enter VAT percentage: ");
+    scanf("%f", &vatPercentage);
+
+    // Calculate VAT and final total price
+    vatAmount = (totalPrice * vatPercentage) / 100;
+    totalPrice += vatAmount;
+
+    printf("Total Price including VAT: %.2f\n", totalPrice);
+
+    // Keep asking for sufficient amount until the purchase is successful
+    do {
+        printf("Enter amount given by the customer: ");
+        scanf("%f", &amountGiven);
+
+        if (amountGiven >= totalPrice) {
+            change = amountGiven - totalPrice;
+            printf("Change to be returned: %.2f\n", change);
+            break; // Exit loop if the amount given is sufficient
+        } else {
+            float amountNeeded = totalPrice - amountGiven;
+            printf("Insufficient amount. You need to give %.2f more.\n", amountNeeded);
+        }
+    } while (1); // Loop until sufficient amount is given
+}
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Generate Bill Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 void generateSalesReport()
@@ -1123,15 +1128,15 @@ void generateSalesReport()
         return;
     }
     system("cls");
-    printf("\nSales Report:\n");
-    printf("Customer Name       Phone Number    Product ID   Product Name         Quantity    Total Price\n");
+    printf("\nSales Report:\n\n");
+    printf("Customer Name           Phone Number    Product ID   Product Name       Quantity    Total Price\n");
     printf(BOLD_MAGENTA "------------------------------------------------------------------------------------------------\n" RESET);
 
     while (fscanf(salesFile, "%99[^\t]\t%14[^\t]\t%d\t%99[^\t]\t%d\t%f\n", purchase.customerName, purchase.phoneNumber, &purchase.productID, purchase.productName, &purchase.quantity, &purchase.totalPrice) != EOF)
     {
         printf("%-23s %-15s %-12d %-20s %-10d %.2f\n", purchase.customerName, purchase.phoneNumber, purchase.productID, purchase.productName, purchase.quantity, purchase.totalPrice);
     }
-
+    printf(BOLD_MAGENTA "------------------------------------------------------------------------------------------------\n" RESET);
     fclose(salesFile);
 }
 
