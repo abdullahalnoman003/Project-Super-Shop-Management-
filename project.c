@@ -102,28 +102,30 @@ void menu()
     int i, n;
     time_t t;
     time(&t);
+    printf("\t");
     for (i = 0; i < 70; i++)
     {
-        printf("*");
+        printf(BOLD_YELLOW"*"RESET);
         Sleep(10);
     }
-    printf("\n");
+    printf("\n\t");
     printf(GREEN "*******        Welcome to Super Shop Management System!        *******\n" RESET);
+    printf("\t");
     for (i = 0; i < 70; i++)
     {
-        printf("*");
+        printf(BOLD_YELLOW"*"RESET);
         Sleep(10);
     }
     printf("\n\n");
-    printf(BOLD_GREEN "\tCurrent Date and Time: %s" RESET, ctime(&t));
-    printf("\t");
+    printf(BOLD_CYAN "\t\tCurrent Date and Time: %s" RESET, ctime(&t));
+    printf("\t\t");
     for (i = 0; i < 47; i++)
     {
         printf(BOLD_MAGENTA "." RESET);
         Sleep(20);
     }
     printf("\n\n");
-    printf(BLUE "\nPress any key to continue....\n" RESET);
+    printf(BOLD_YELLOW "\n\tPress any key to continue....\n" RESET);
     getch();
     system("cls");
 
@@ -132,18 +134,18 @@ void menu()
         system("cls");
         printf("\n");
         printf(BOLD_WHITE "                   Continue as...     \n" RESET);
-        printf(BOLD_MAGENTA "             ---------------------- \n\n");
+        printf(BOLD_MAGENTA "             <----------------------> \n\n");
         printf(CYAN "   ******************************************\n\n" RESET);
-        printf(BOLD_MAGENTA "         1.   Customer.                      \n" RESET);
+        printf(BOLD_GREEN "         1 =>   Customer.                      \n" RESET);
         Sleep(400);
-        printf(BOLD_YELLOW "         2.   Shop Administrators.           \n" RESET);
+        printf(BOLD_YELLOW "         2 =>   Shop Administrators.           \n" RESET);
         Sleep(400);
-        printf(BOLD_RED "         3.   Exit the system.               \n\n" RESET);
+        printf(BOLD_RED "         3 =>   Exit the system.               \n\n" RESET);
         Sleep(400);
         printf(CYAN "   ******************************************\n" RESET);
         printf("\n\n");
 
-        printf(BOLD_GREEN "Please Enter Your Selection (1-3): " RESET);
+        printf(BLUE"Please Enter Your Selection (1-3): " RESET);
         scanf("%d", &n);
         getchar();
 
@@ -155,11 +157,15 @@ void menu()
         case 2:
             system("cls");
             int c2;
-            printf("1. Login as Staff.\n");
-            printf("2. Login as Admin.\n");
-            printf("Enter your choice: ");
+            printf(BOLD_CYAN"\t\tWelcome :)\n"RESET);
+            printf(BOLD_MAGENTA"\t<----------------------->\n\n"RESET);
+            printf(BOLD_GREEN"\t1 => Login as Staff.\n"RESET);
+            printf(BOLD_YELLOW"\t2 => Login as Admin.\n\n");
+            printf(BOLD_YELLOW"\t<------------------------->)\n\n"RESET);
+            printf(BOLD_BLUE"   Enter your choice ==> "RESET);
             scanf("%d", &c2);
             getchar();
+            
             if (c2 == 1)
             {
                 staffLogin();
@@ -170,16 +176,15 @@ void menu()
             }
             else
             {
-                printf("Invalid choice. Please select a valid option.\n");
+                printf(RED"Invalid choice. Please select a valid option.\n"RESET);
             }
             break;
         case 3:
             system("cls");
-            printf(BOLD_CYAN "Thank you for visiting our shop.\n     Stay Safe. :) \n" RESET);
+            printf(BOLD_CYAN "\t\t<====Thank you for visiting our shop.====>\n     \t\t<====Stay Safe. :)====> \n\n\n\n" RESET);
             break;
         default:
             printf(RED "Please select a valid option.\n" RESET);
-            Sleep(2500);   // Pause to allow the user to see the message
             system("cls"); // Clear screen
             break;
         }
