@@ -148,7 +148,7 @@ void menu()
         printf(BLUE"Please Enter Your Selection (1-3): " RESET);
         scanf("%d", &n);
         getchar();
-
+        fflush(stdin);
         switch (n)
         {
         case 1:
@@ -165,7 +165,7 @@ void menu()
             printf(BOLD_BLUE"   Enter your choice ==> "RESET);
             scanf("%d", &c2);
             getchar();
-            
+            fflush(stdin); // used for standerd input NOTE: it may not work in all compiler
             if (c2 == 1)
             {
                 staffLogin();
@@ -177,6 +177,8 @@ void menu()
             else
             {
                 printf(RED"Invalid choice. Please select a valid option.\n"RESET);
+                printf(GREEN"Returning to Main Menu........"RESET);
+                Sleep(2000);
             }
             break;
         case 3:
@@ -185,6 +187,8 @@ void menu()
             break;
         default:
             printf(RED "Please select a valid option.\n" RESET);
+            printf(GREEN"Please Try Again.\n"RESET);
+            Sleep(2000);
             system("cls"); // Clear screen
             break;
         }
@@ -355,6 +359,7 @@ void admin() {
                     printf("0. Return To Admin Menu.\n");
                     scanf("%d", &d);
                     getchar();
+                    fflush(stdin);
                     switch (d) {
                         case 0:
                             return;
@@ -374,11 +379,14 @@ void admin() {
                             modifyProduct();
                             break;
                         default:
-                            printf("Please Select Valid Option!");
+                            printf("Please Select Valid Option!\n\n");
+                            Sleep(1000);
                             break;
                     }
                     printf("Do you want to stay in the Manage Store menu? (Y/N): ");
                     scanf(" %c", &stay1);
+                    getchar();
+                    fflush(stdin);
                 } while (stay1 == 'Y' || stay1 == 'y');
                 break; // Add this break statement
             case 2:
