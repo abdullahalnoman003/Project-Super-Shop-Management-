@@ -1,5 +1,7 @@
 /*
   Super Shop Management System
+
+  Our very first project
 */
 
 #include <stdio.h>
