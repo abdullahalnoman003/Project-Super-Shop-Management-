@@ -34,7 +34,7 @@
 #define ADMIN_PASSWORD "1" // Password is fixed for security
 
 void menu();
-void customer();// here is test
+void customer();
 void admin();
 void adminLogin();
 void staffLogin();
