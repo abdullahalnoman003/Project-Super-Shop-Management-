@@ -1,7 +1,7 @@
 /*
   Super Shop Management System
 
-  Our very first project
+  Our very first project ghyty
 */
 
 #include <stdio.h>
