@@ -1,7 +1,7 @@
 /*
   Super Shop Management System
 
-  Our very first project
+  
 */
 
 #include <stdio.h>
@@ -9,7 +9,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <windows.h>//daffodil
+#include <windows.h>
 #include <time.h>
 
 #define RESET "\033[0m" // Reset all attributes
