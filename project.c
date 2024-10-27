@@ -219,15 +219,20 @@ void customer()
         printf("\n");
         printf(BOLD_CYAN "What would you like to do? \n" RESET);
         printf(BOLD_RED "-------------------------------------- \n\n" RESET);
-        printf(BOLD_WHITE "\t1.  View Product. \n" RESET);
+        printf(BOLD_RED "\t1. " RESET);
+        printf(BOLD_GREEN "View Product \n" RESET);
         Sleep(20);
-        printf(BOLD_WHITE "\t2.  Search Product. \n" RESET);
+        printf(BOLD_RED "\t2. " RESET);
+        printf(BOLD_GREEN "Search Product. \n");
         Sleep(20);
-        printf(BOLD_WHITE "\t3.  Buy Product. \n" RESET);
+        printf(BOLD_RED "\t3. " RESET);
+        printf(BOLD_GREEN "Buy Product. \n");
         Sleep(20);
-        printf(BOLD_WHITE "\t4.  Rate Our Shop. \n" RESET);
+        printf(BOLD_RED "\t4. " RESET);
+        printf(BOLD_GREEN "Rate Our Shop. \n");
         Sleep(20);
-        printf(BOLD_WHITE "\t5.  Return to Main Menu. \n\n" RESET); // Added option to return to the main menu
+        printf(BOLD_RED "\t5. " RESET);
+        printf(BOLD_GREEN "Return to Main Menu. \n\n"); // Added option to return to the main menu
         Sleep(20);
         printf(BOLD_RED "-------------------------------------- \n\n" RESET);
         Sleep(20);
@@ -852,17 +857,26 @@ void viewProduct()
         // If not printed, print all products in this category
         if (!alreadyPrinted)
         {
-            printf("\nCategory: %s\n", products[i].category);
-            printf("ID     Name                 Price     Quantity\n");
-            printf("---------------------------------------------\n");
+            printf(BOLD_CYAN "\nCategory: " RESET);  //Color added
+            printf(WHITE "%s\n" RESET, products[i].category);
+            // printf(BOLD_MAGENTA "ID     Name                 Price     Quantity\n" RESET);
+            printf(BOLD_RED "ID" RESET);
+            printf(BOLD_GREEN "     Name" RESET);
+            printf(BOLD_WHITE "                 Price" RESET);
+            printf(BOLD_MAGENTA "     Quantity\n" RESET);
+            printf(BOLD_CYAN "---------------------------------------------\n" RESET);
             for (int j = 0; j < count; j++)
             {
                 if (strcmp(products[i].category, products[j].category) == 0)
                 {
-                    printf("%-6d %-20s %-8.2f %.2f\n", products[j].ID, products[j].name, products[j].price, products[j].quantity);
+                    // printf("%-6d %-20s %-8.2f %.2f\n", products[j].ID, products[j].name, products[j].price, products[j].quantity);
+                    printf(RED "%-6d " RESET, products[j].ID);
+                    printf(GREEN "%-20s " RESET, products[j].name);
+                    printf(WHITE "%-8.2f " RESET, products[j].price);
+                    printf(MAGENTA "%.2f\n" RESET, products[j].quantity);
                 }
             }
-            printf("---------------------------------------------\n");
+            printf(BOLD_CYAN "---------------------------------------------\n" RESET);
         }
     }
 }
