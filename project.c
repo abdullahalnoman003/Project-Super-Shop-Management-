@@ -870,10 +870,10 @@ void viewProduct()
                 if (strcmp(products[i].category, products[j].category) == 0)
                 {
                     // printf("%-6d %-20s %-8.2f %.2f\n", products[j].ID, products[j].name, products[j].price, products[j].quantity);
-                    printf(RED "%-6d " RESET, products[j].ID);
-                    printf(GREEN "%-20s " RESET, products[j].name);
-                    printf(WHITE "%-8.2f " RESET, products[j].price);
-                    printf(MAGENTA "%.2f\n" RESET, products[j].quantity);
+                    printf(BOLD_RED "%-6d " RESET, products[j].ID);
+                    printf(BOLD_GREEN "%-20s " RESET, products[j].name);
+                    printf(BOLD_WHITE "%-8.2f " RESET, products[j].price);
+                    printf(BOLD_MAGENTA "%.2f\n" RESET, products[j].quantity);
                 }
             }
             printf(BOLD_CYAN "---------------------------------------------\n" RESET);
