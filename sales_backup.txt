@@ -1,8 +1,7 @@
-Noman	01725036007	105	Lux	2	120.00
-Noman	01725036007	101	Potato	2	160.00
-Noman	01725036007	104	Korolla	50	3000.00
-Abdullah Al Noman	01725036007	104	Korolla	3	180.00
-Abdullah Al Noman	01725036007	101	Potato	2	160.00
-Abdullah Al Noman	01725036007	102	Potol	4	160.00
-Noman	0123456789	101	Potato	1	50.00
-Noman	0123456789	102	Potol	1	29.00
+Abdullah AL Noman	1123414	401	Floor Cleaner	2	200.00
+Abdullah AL Noman	1123414	401	Floor Cleaner	9	900.00
+logan paul	989898989	105	Lux	3	195.00
+logan paul	989898989	104	Korolla	2	120.00
+logan paul	989898989	401	Floor Cleaner	3	300.00
+Abdullah AL Sovon	01723423232	100	Vim Bar	2	80.00
+Abdullah AL Sovon	01723423232	104	Korolla	2	120.00

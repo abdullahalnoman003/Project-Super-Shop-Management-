@@ -160,10 +160,12 @@ void menu()
             system("cls");
             int c2;
             printf(BOLD_CYAN"\t\tWelcome :)\n"RESET);
-            printf(BOLD_MAGENTA"\t<----------------------->\n\n"RESET);
-            printf(BOLD_GREEN"\t1 => Login as Staff.\n"RESET);
-            printf(BOLD_YELLOW"\t2 => Login as Admin.\n\n");
-            printf(BOLD_YELLOW"\t<------------------------->)\n\n"RESET);
+            printf(BOLD_YELLOW"\t<------------------------->\n\n"RESET);
+            printf(BOLD_MAGENTA"\t1 =>"RESET);
+            printf(BOLD_GREEN"\tLogin as Staff.\n"RESET);
+            printf(BOLD_MAGENTA"\t2 => "RESET);
+            printf(BOLD_GREEN"\tLogin as Admin.\n\n"RESET);
+            printf(BOLD_YELLOW"\t<------------------------->\n\n"RESET);
             printf(BOLD_BLUE"   Enter your choice ==> "RESET);
             scanf("%d", &c2);
             getchar();
@@ -178,9 +180,14 @@ void menu()
             }
             else
             {
-                printf(RED"Invalid choice. Please select a valid option.\n"RESET);
-                printf(GREEN"Returning to Main Menu........"RESET);
-                Sleep(2000);
+                printf(RED"\tInvalid choice. Please select a valid option.\n\n"RESET);
+                printf(GREEN"\tReturning to Main Menu........"RESET);
+                printf(BOLD_WHITE"3"RESET);
+                Sleep(1000);
+                printf(BOLD_WHITE"2"RESET);
+                Sleep(1000);
+                printf(BOLD_WHITE"1"RESET);
+                Sleep(1000);
             }
             break;
         case 3:
@@ -239,6 +246,7 @@ void customer()
         printf(GREEN "Enter your choice: " RESET);
         scanf("%d", &choice);
         getchar(); // consumes new line
+        fflush(stdin);
 
         switch (choice)
         {
@@ -309,7 +317,7 @@ void adminLogin()
             printf("Invalid Username or Password. You have %d attempt(s) left.\n", attempts);
             if (attempts > 0)
             {
-                printf("Would you like to try again? (Y/N): ");
+                printf(CYAN"Would you like to try again? (Y/N): "RESET);
                 scanf(" %c", &choice);
                 getchar();
                 if (choice == 'N' || choice == 'n')
@@ -319,7 +327,7 @@ void adminLogin()
             }
             else
             {
-                printf("No attempts left. Returning to main menu.\n");
+                printf(BOLD_RED"No attempts left. Returning to main menu.\n"RESET);
                 printf("3\n");
                 Sleep(1000);
                 printf("2\n");
@@ -347,11 +355,12 @@ void admin() {
         printf(BOLD_WHITE "\t4. Backup Data.\n" RESET);
         printf(BOLD_WHITE "\t5. Manage Staff.\n" RESET);
         printf(BOLD_WHITE "\t6. View Customer Review.\n" RESET);
-        printf(BOLD_WHITE "\t0. Return to Main Menu\n\n" RESET); // Option to return to the main menu
+        printf(BOLD_WHITE "\t0. Logout.\n\n" RESET); // Option to return to the main menu
         printf(BOLD_RED "------------------------------------ \n\n" RESET);
         printf(BOLD_YELLOW "\tEnter your choice: " RESET);
         scanf("%d", &choice);
         getchar(); // Consume the newline character
+        fflush(stdin);
         switch (choice) {
             case 0:
                 return; // This will exit the function and return to the main menu
@@ -363,7 +372,7 @@ void admin() {
                     printf("3. Add Product.\n");
                     printf("4. Delete Product.\n");
                     printf("5. Modify Product.\n");
-                    printf("0. Return To Admin Menu.\n");
+                    printf("0. Return to Admin Menu.\n");
                     scanf("%d", &d);
                     getchar();
                     fflush(stdin);
@@ -413,6 +422,7 @@ void admin() {
                     printf("Enter your choice:  ");
                     scanf("%d", &opt);
                     getchar();
+                    fflush(stdin);
                     switch (opt) {
                         case 1:
                             backupData("products.txt", "products_backup.txt");
@@ -427,11 +437,14 @@ void admin() {
                             backupData("reviews.txt", "review_backup.txt");
                             break;
                         default:
-                            printf("Enter a Valid Option.\n");
+                            printf(BOLD_RED"Enter a Valid Option.\n"RESET);
+                            Sleep(2000);
                             break;
                     }
                     printf("Do you want to back up another file? [Y/N] => ");
                     scanf(" %c", &choice2);
+                    getchar();
+                    fflush(stdin);
                 } while (choice2 == 'Y' || choice2 == 'y');
                 break;
             case 5:
@@ -441,11 +454,14 @@ void admin() {
                 viewReviews();
                 break;
             default:
-                printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
+                printf(BOLD_RED "\nInvalid choice. Please enter a valid option.\n" RESET);
+                Sleep(2000);
                 break;
         }
         printf(GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
         scanf(" %c", &stay); // The space before %c to consume any leftover newline character
+        getchar();
+        fflush(stdin);
     } while (stay == 'Y' || stay == 'y');
     system("cls"); // Clear the screen
 }
@@ -465,6 +481,8 @@ void manageStaff()
         printf("4. Return to Main Menu\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        getchar();
+        fflush(stdin);
 
         switch (choice)
         {
@@ -617,6 +635,7 @@ void modifyStaff() {
     } while (modifyAnother == 'Y' || modifyAnother == 'y');
 
     printf("Returning to main menu...\n");
+    Sleep(1000);
 }
 
 // // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Login Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -684,6 +703,7 @@ void staffMenu(const char *staffName)
         printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar(); // Consume newline character
+        fflush(stdin);
 
         switch (choice)
         {
@@ -708,13 +728,15 @@ void staffMenu(const char *staffName)
         case 7:
             return;
         default:
-            printf("Invalid choice. Please enter a valid option.\n");
+            printf(BOLD_RED"Invalid choice. Please enter a valid option.\n"RESET);
+            Sleep(2000);
             break;
         }
 
         printf("\nDo you want to perform another action? (Y/N): ");
         scanf(" %c", &stay);
         getchar(); // Consume newline character
+        fflush(stdin);
     } while (stay == 'Y' || stay == 'y');
 }
 
@@ -756,6 +778,8 @@ void addProduct()
         fprintf(file, "%d\t%s\t%s\t%.2f\t%.2f\n", p1.ID, p1.category, p1.name, p1.price, p1.quantity);
         printf(BOLD_CYAN "\nItem Successfully Added. Do you want to add more? (Y/N): " RESET);
         scanf(" %c", &choice);
+        getchar();
+        fflush(stdin);
     } while (choice == 'Y' || choice == 'y');
 
     fclose(file);
@@ -805,6 +829,7 @@ void deleteProduct() {
         printf("Do you want to delete another item? (Y/N): ");
         scanf(" %c", &more);
         getchar();  // Consume the newline character
+        fflush(stdin);
 
     } while (more == 'Y' || more == 'y');
 }
@@ -945,6 +970,7 @@ void searchProduct()
         else
         {
             printf(BOLD_RED "Invalid choice.\n" RESET);
+            Sleep(2000);
         }
 
         if (found == 0)
@@ -956,6 +982,8 @@ void searchProduct()
 
         printf(BOLD_GREEN "\nDo you want to search again? (Y/N): " RESET);
         scanf(" %c", &repeat);
+        getchar();
+        fflush(stdin);
     } while (repeat == 'Y' || repeat == 'y');
 }
 
@@ -1009,6 +1037,7 @@ void modifyProduct() {
         printf("Do you want to modify another product? (Y/N): ");
         scanf(" %c", &modifyAnother);
         getchar(); // Consume the newline character
+        fflush(stdin);
     } while (modifyAnother == 'Y' || modifyAnother == 'y');
 
     // Ensure function returns control properly
@@ -1229,7 +1258,7 @@ void giveReview()
         printf("Error opening file!\n");
         return;
     }
-
+    system("cls");
     printf("Enter your name: ");
     fgets(r.name, sizeof(r.name), stdin);
     r.name[strcspn(r.name, "\n")] = 0; // Remove newline character
@@ -1243,6 +1272,12 @@ void giveReview()
         printf("Rate our super shop (1-5): ");
         scanf("%f", &r.rating);
         getchar(); // Consume the newline character
+        fflush(stdin);
+        if (r.rating < 1 || r.rating > 5)
+        {
+            printf(BOLD_RED"Invald Rating please Enter valid Number!\n\n"RESET);
+        }
+        
     } while (r.rating < 1 || r.rating > 5);
 
     printf("Enter your comments (200 words max): ");
