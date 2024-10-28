@@ -144,10 +144,10 @@ void menu()
         Sleep(400);
         printf(BOLD_RED "         3 =>   Exit the system.               \n\n" RESET);
         Sleep(400);
-        printf(CYAN "   ******************************************\n" RESET);
+        printf(BOLD_CYAN "   ******************************************\n" RESET);
         printf("\n\n");
 
-        printf(BLUE"Please Enter Your Selection (1-3): " RESET);
+        printf(BOLD_BLUE"Please Enter Your Selection (1-3): " RESET);
         scanf("%d", &n);
         getchar();
         fflush(stdin);
@@ -178,8 +178,8 @@ void menu()
             }
             else
             {
-                printf(RED"Invalid choice. Please select a valid option.\n"RESET);
-                printf(GREEN"Returning to Main Menu........"RESET);
+                printf(BOLD_BLUE"Invalid choice. Please select a valid option.\n"RESET);
+                printf(BOLD_GREEN"Returning to Main Menu........"RESET);
                 Sleep(2000);
             }
             break;
@@ -188,8 +188,8 @@ void menu()
             printf(BOLD_CYAN "\t\t<====Thank you for visiting our shop.====>\n     \t\t<====Stay Safe. :)====> \n\n\n\n" RESET);
             break;
         default:
-            printf(RED "Please select a valid option.\n" RESET);
-            printf(GREEN"Please Try Again.\n"RESET);
+            printf(BOLD_RED "Please select a valid option.\n" RESET);
+            printf(BOLD_GREEN"Please Try Again.\n"RESET);
             Sleep(2000);
             system("cls"); // Clear screen
             break;
@@ -223,16 +223,16 @@ void customer()
         printf(BOLD_GREEN "View Product \n" RESET);
         Sleep(20);
         printf(BOLD_RED "\t2. " RESET);
-        printf(BOLD_GREEN "Search Product. \n");
+        printf(BOLD_GREEN "Search Product. \n"RESET);
         Sleep(20);
         printf(BOLD_RED "\t3. " RESET);
-        printf(BOLD_GREEN "Buy Product. \n");
+        printf(BOLD_GREEN "Buy Product. \n"RESET);
         Sleep(20);
         printf(BOLD_RED "\t4. " RESET);
-        printf(BOLD_GREEN "Rate Our Shop. \n");
+        printf(BOLD_GREEN "Rate Our Shop. \n"RESET);
         Sleep(20);
         printf(BOLD_RED "\t5. " RESET);
-        printf(BOLD_GREEN "Return to Main Menu. \n\n"); // Added option to return to the main menu
+        printf(BOLD_GREEN "Return to Main Menu. \n\n"RESET); // Added option to return to the main menu
         Sleep(20);
         printf(BOLD_RED "-------------------------------------- \n\n" RESET);
         Sleep(20);
@@ -260,7 +260,7 @@ void customer()
         case 5:
             return; // This will exit function and return to the main menu
         default:
-            printf("Invalid choice. Please Enter valid option.\n");
+            printf(BOLD_RED"Invalid choice. Please Enter valid option.\n"RESET);
             break;
         }
         // asking user if he wants to stay or not
@@ -306,10 +306,10 @@ void adminLogin()
         else
         {
             attempts--;
-            printf(RED "Invalid Username or Password. You have %d attempt(s) left.\n" RESET, attempts);
+            printf(BOLD_RED "Invalid Username or Password. You have %d attempt(s) left.\n" RESET, attempts);
             if (attempts > 0)
             {
-                printf(GREEN "Would you like to try again? (Y/N): " RESET);
+                printf(BOLD_RED "Would you like to try again? (Y/N): " RESET);
                 scanf(" %c", &choice);
                 getchar();
                 if (choice == 'N' || choice == 'n')
@@ -319,7 +319,7 @@ void adminLogin()
             }
             else
             {
-                printf(YELLOW "No attempts left. Returning to main menu.\n" RESET);
+                printf(BOLD_RED "No attempts left. Returning to main menu.\n" RESET);
                 printf(RED"3\n" RESET);
                 Sleep(1000);
                 printf(WHITE "2\n" RESET);
@@ -387,11 +387,11 @@ void admin() {
                             modifyProduct();
                             break;
                         default:
-                            printf("Please Select Valid Option!\n\n");
+                            printf(BOLD_RED"Please Select Valid Option!\n\n"RESET);
                             Sleep(1000);
                             break;
                     }
-                    printf("Do you want to stay in the Manage Store menu? (Y/N): ");
+                    printf(BOLD_GREEN"Do you want to stay in the Manage Store menu? (Y/N): "RESET);
                     scanf(" %c", &stay1);
                     getchar();
                     fflush(stdin);
@@ -445,7 +445,7 @@ void admin() {
                 printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
                 break;
         }
-        printf(GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
+        printf(BOLD_GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
         scanf(" %c", &stay); // The space before %c to consume any leftover newline character
     } while (stay == 'Y' || stay == 'y');
     system("cls"); // Clear the screen
