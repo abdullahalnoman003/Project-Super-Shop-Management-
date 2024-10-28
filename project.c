@@ -119,7 +119,7 @@ void menu()
         Sleep(10);
     }
     printf("\n\n");
-    printf(BOLD_CYAN"\t\tCurrent Date and Time: %s" RESET, ctime(&t));
+    printf(BOLD_CYAN "\t\tCurrent Date and Time: %s" RESET, ctime(&t));
     printf("\t\t");
     for (i = 0; i < 47; i++)
     {
@@ -127,7 +127,7 @@ void menu()
         Sleep(20);
     }
     printf("\n\n");
-    printf(BOLD_YELLOW"\n\tPress any key to continue....\n" RESET);
+    printf(BOLD_YELLOW "\n\tPress any key to continue....\n" RESET);
     getch();
     system("cls");
 
@@ -160,12 +160,10 @@ void menu()
             system("cls");
             int c2;
             printf(BOLD_CYAN"\t\tWelcome :)\n"RESET);
-            printf(BOLD_YELLOW"\t<------------------------->\n\n"RESET);
-            printf(BOLD_MAGENTA"\t1 =>"RESET);
-            printf(BOLD_GREEN"\tLogin as Staff.\n"RESET);
-            printf(BOLD_MAGENTA"\t2 => "RESET);
-            printf(BOLD_GREEN"\tLogin as Admin.\n\n"RESET);
-            printf(BOLD_YELLOW"\t<------------------------->\n\n"RESET);
+            printf(BOLD_MAGENTA"\t<----------------------->\n\n"RESET);
+            printf(BOLD_GREEN"\t1 => Login as Staff.\n"RESET);
+            printf(BOLD_YELLOW"\t2 => Login as Admin.\n\n");
+            printf(BOLD_YELLOW"\t<------------------------->)\n\n"RESET);
             printf(BOLD_BLUE"   Enter your choice ==> "RESET);
             scanf("%d", &c2);
             getchar();
@@ -180,14 +178,9 @@ void menu()
             }
             else
             {
-                printf(RED"\tInvalid choice. Please select a valid option.\n\n"RESET);
-                printf(GREEN"\tReturning to Main Menu........"RESET);
-                printf(BOLD_WHITE"3"RESET);
-                Sleep(1000);
-                printf(BOLD_WHITE"2"RESET);
-                Sleep(1000);
-                printf(BOLD_WHITE"1"RESET);
-                Sleep(1000);
+                printf(RED"Invalid choice. Please select a valid option.\n"RESET);
+                printf(GREEN"Returning to Main Menu........"RESET);
+                Sleep(2000);
             }
             break;
         case 3:
@@ -246,7 +239,6 @@ void customer()
         printf(GREEN "Enter your choice: " RESET);
         scanf("%d", &choice);
         getchar(); // consumes new line
-        fflush(stdin);
 
         switch (choice)
         {
@@ -274,7 +266,7 @@ void customer()
         // asking user if he wants to stay or not
         printf(BOLD_GREEN "\nDo you want to stay in the Customer Menu? (Y/N): " RESET);
         scanf(" %c", &stay); // the space before %c to consume any leftover newline character
-        
+
     } while (stay == 'Y' || stay == 'y');
     system("cls"); // Clearing screen
 }
@@ -314,10 +306,10 @@ void adminLogin()
         else
         {
             attempts--;
-            printf("Invalid Username or Password. You have %d attempt(s) left.\n", attempts);
+            printf(RED "Invalid Username or Password. You have %d attempt(s) left.\n" RESET, attempts);
             if (attempts > 0)
             {
-                printf(CYAN"Would you like to try again? (Y/N): "RESET);
+                printf(GREEN "Would you like to try again? (Y/N): " RESET);
                 scanf(" %c", &choice);
                 getchar();
                 if (choice == 'N' || choice == 'n')
@@ -327,12 +319,12 @@ void adminLogin()
             }
             else
             {
-                printf(BOLD_RED"No attempts left. Returning to main menu.\n"RESET);
-                printf("3\n");
+                printf(YELLOW "No attempts left. Returning to main menu.\n" RESET);
+                printf(RED"3\n" RESET);
                 Sleep(1000);
-                printf("2\n");
+                printf(WHITE "2\n" RESET);
                 Sleep(1000);
-                printf("1\n");
+                printf(RED "1\n" RESET);
                 Sleep(1000);
                 return; // Exit to the main menu after all attempts are used
             }
@@ -348,31 +340,31 @@ void admin() {
     do {
         system("cls");
         printf(BOLD_GREEN "\nHey Admin! What would you like to do?\n\n" RESET);
-        printf(BOLD_RED "----------------------------------- \n\n" RESET);
+        printf(BOLD_CYAN "----------------------------------- \n\n" RESET);
         printf(BOLD_WHITE "\t1. Manage Store.\n" RESET);
-        printf(BOLD_WHITE "\t2. Generate Sales Report\n" RESET);
-        printf(BOLD_WHITE "\t3. Check Low Stock.\n" RESET);
+        printf(BOLD_YELLOW"\t2. Generate Sales Report\n" RESET);
+        printf(BOLD_RED "\t3. Check Low Stock.\n" RESET);
         printf(BOLD_WHITE "\t4. Backup Data.\n" RESET);
-        printf(BOLD_WHITE "\t5. Manage Staff.\n" RESET);
-        printf(BOLD_WHITE "\t6. View Customer Review.\n" RESET);
-        printf(BOLD_WHITE "\t0. Logout.\n\n" RESET); // Option to return to the main menu
-        printf(BOLD_RED "------------------------------------ \n\n" RESET);
+        printf(BOLD_MAGENTA "\t5. Manage Staff.\n" RESET);
+        printf(BOLD_GREEN "\t6. View Customer Review.\n" RESET);
+        printf(BOLD_RED "\t0. Return to Main Menu\n\n" RESET); // Option to return to the main menu
+        printf(BOLD_CYAN "------------------------------------ \n\n" RESET);
         printf(BOLD_YELLOW "\tEnter your choice: " RESET);
         scanf("%d", &choice);
         getchar(); // Consume the newline character
-        fflush(stdin);
         switch (choice) {
             case 0:
                 return; // This will exit the function and return to the main menu
             case 1:
                 do {
                     system("cls");
-                    printf("1. View Product.\n");
-                    printf("2. Search Product.\n");
-                    printf("3. Add Product.\n");
-                    printf("4. Delete Product.\n");
-                    printf("5. Modify Product.\n");
-                    printf("0. Return To Admin Menu.\n");
+                    printf(BOLD_WHITE "1. View Product.\n" RESET);
+                    printf(BOLD_BLUE "2. Search Product.\n" RESET);
+                    printf(BOLD_MAGENTA "3. Add Product.\n" RESET );
+                    printf(BOLD_WHITE "4. Delete Product.\n" RESET );
+                    printf(BOLD_YELLOW "5. Modify Product.\n" RESET );
+                    printf(BOLD_RED "0. Return To Admin Menu.\n" RESET );
+                    printf(BOLD_GREEN "\n\nEnter you choice: " RESET);
                     scanf("%d", &d);
                     getchar();
                     fflush(stdin);
@@ -395,11 +387,11 @@ void admin() {
                             modifyProduct();
                             break;
                         default:
-                            printf(BOLD_RED"Please Select Valid Option!\n\n" RESET);
+                            printf("Please Select Valid Option!\n\n");
                             Sleep(1000);
                             break;
                     }
-                    printf(BOLD_YELLOW"Do you want to stay in the Manage Store menu? (Y/N): " RESET);
+                    printf("Do you want to stay in the Manage Store menu? (Y/N): ");
                     scanf(" %c", &stay1);
                     getchar();
                     fflush(stdin);
@@ -414,15 +406,14 @@ void admin() {
             case 4:
                 do {
                     system("cls");
-                    printf(BOLD_GREEN"Which Section Data you want to Backup: \n"RESET);
-                    printf(BOLD_CYAN"1. Product. \n"RESET);
-                    printf(BOLD_YELLOW"2. Sales. \n"RESET);
-                    printf(BOLD_MAGENTA"3. Staff. \n"RESET);
-                    printf(BOLD_BLUE"4. Review. \n\n"RESET);
-                    printf(BOLD_YELLOW"Enter your choice:  "RESET);
+                    printf(BOLD_GREEN "Which Section Data you want to Backup: \n" RESET);
+                    printf(BOLD_CYAN "1. Product. \n" RESET);
+                    printf(BOLD_WHITE "2. Sales. \n" RESET);
+                    printf(BOLD_YELLOW "3. Staff. \n" RESET);
+                    printf(BOLD_MAGENTA "4. Review. \n\n" RESET);
+                    printf(BOLD_CYAN "Enter your choice:  " RESET);
                     scanf("%d", &opt);
                     getchar();
-                    fflush(stdin);
                     switch (opt) {
                         case 1:
                             backupData("products.txt", "products_backup.txt");
@@ -437,13 +428,11 @@ void admin() {
                             backupData("reviews.txt", "review_backup.txt");
                             break;
                         default:
-                            printf("Enter a Valid Option.\n");
+                            printf(BOLD_RED "Enter a Valid Option.\n" RESET);
                             break;
                     }
-                    printf(BOLD_YELLOW"Do you want to back up another file? [Y/N] => "RESET);
+                    printf(BOLD_GREEN "Do you want to back up another file? [Y/N] => " RESET);
                     scanf(" %c", &choice2);
-                    getchar();
-                    fflush(stdin);
                 } while (choice2 == 'Y' || choice2 == 'y');
                 break;
             case 5:
@@ -453,14 +442,11 @@ void admin() {
                 viewReviews();
                 break;
             default:
-                printf(BOLD_RED "\nInvalid choice. Please enter a valid option.\n" RESET);
-                Sleep(2000);
+                printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
                 break;
         }
-        printf(BOLD_GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
+        printf(GREEN "\nDo you want to stay in the Admin Menu? (Y/N): " RESET);
         scanf(" %c", &stay); // The space before %c to consume any leftover newline character
-        getchar();
-        fflush(stdin);
     } while (stay == 'Y' || stay == 'y');
     system("cls"); // Clear the screen
 }
@@ -473,15 +459,13 @@ void manageStaff()
     do
     {
         system("cls");
-        printf(BOLD_CYAN"\nStaff Management:\n"RESET);
-        printf(BOLD_CYAN"1. Add Staff\n"RESET);
-        printf(BOLD_CYAN"2. Remove Staff\n"RESET);
-        printf(BOLD_CYAN"3. Modify Staff\n"RESET);
-        printf(BOLD_CYAN"4. Return to Main Menu\n"RESET);
-        printf(BOLD_CYAN"Enter your choice: "RESET);
+        printf(BOLD_GREEN "\nStaff Management:\n" RESET);
+        printf(BOLD_YELLOW "1. Add Staff\n" RESET);
+        printf(BOLD_BLUE "2. Remove Staff\n" RESET);
+        printf(BOLD_WHITE "3. Modify Staff\n" RESET);
+        printf(BOLD_RED "4. Return to Main Menu\n" RESET);
+        printf(BOLD_CYAN "\n\nEnter your choice: " RESET);
         scanf("%d", &choice);
-        getchar();
-        fflush(stdin);
 
         switch (choice)
         {
@@ -497,7 +481,7 @@ void manageStaff()
         case 4:
             return;
         default:
-            printf(BOLD_RED"Invalid choice. Please enter a valid option.\n"RESET);
+            printf(BOLD_RED "Invalid choice. Please enter a valid option.\n" RESET);
             break;
         }
     } while (choice != 4);
@@ -510,25 +494,25 @@ void addStaff()
     FILE *file = fopen("staff.txt", "a+");
     if (file == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
     system("cls");
-    printf(BOLD_YELLOW"Enter new staff ID: "RESET);
+    printf(BOLD_RED "Enter new staff ID: " RESET);
     scanf("%d", &s.id);
-    printf(BOLD_YELLOW"Enter new staff name: "RESET);
+    printf(BOLD_YELLOW "Enter new staff name: " RESET);
     scanf(" %[^\n]s", s.name); // Read the full name including spaces
     getchar();
-    printf(BOLD_YELLOW"Enter new staff username: "RESET);
+    printf(BOLD_CYAN "Enter new staff username: " RESET);
     scanf("%s", s.username);
     getchar();
-    printf(BOLD_YELLOW"Enter new staff password: "RESET);
+    printf(BOLD_MAGENTA "Enter new staff password: " RESET);
     scanf("%s", s.password);
     getchar();
 
     fprintf(file, "%d\t%s\t%s\t%s\n", s.id, s.name, s.username, s.password);
     fclose(file);
-    printf(BOLD_GREEN"New staff added successfully.\n"RESET);
+    printf(BOLD_GREEN "New staff added successfully.\n" RESET);
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Remove Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -540,11 +524,11 @@ void removeStaff()
     FILE *tempFile = fopen("temp_staff.txt", "w");
     if (file == NULL || tempFile == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
 
-    printf(BOLD_YELLOW"Enter the ID of the staff to remove: "RESET);
+    printf(BOLD_RED "Enter the ID of the staff to remove: " RESET);
     scanf("%d", &idToRemove);
 
     int found = 0;
@@ -567,12 +551,12 @@ void removeStaff()
     {
         remove("staff.txt");
         rename("temp_staff.txt", "staff.txt");
-        printf(BOLD_GREEN"Staff removed successfully.\n"RESET);
+        printf(BOLD_GREEN"\n\nStaff removed successfully.\n" RESET);
     }
     else
     {
         remove("temp_staff.txt");
-        printf(BOLD_RED"Staff not found.\n"RESET);
+        printf("Staff not found.\n");
     }
 }
 
@@ -587,11 +571,11 @@ void modifyStaff() {
         FILE *file = fopen("staff.txt", "r");
         FILE *tempFile = fopen("temp_staff.txt", "w");
         if (file == NULL || tempFile == NULL) {
-            printf(BOLD_GREEN"Error opening file!\n"RESET);
+            printf("Error opening file!\n");
             return;
         }
 
-        printf(BOLD_GREEN"Enter the ID of the staff to edit: "RESET);
+        printf(BOLD_CYAN "Enter the ID of the staff to edit: " RESET);
         scanf("%d", &idToEdit);
         getchar(); // Consume the newline character
 
@@ -601,14 +585,14 @@ void modifyStaff() {
 
             if (s.id == idToEdit) {
                 found = 1; // Staff member found
-                printf("-------------------------------------------------------------\n");
-                printf(BOLD_YELLOW"Current Staff Name: %s\n"RESET, s.name);
-                printf(BOLD_YELLOW"Current Username: %s\n"RESET, s.username);
-                printf(BOLD_YELLOW"Current Password: %s\n\n"RESET, s.password);
-                printf(BOLD_YELLOW"Enter new username: "RESET);
+                printf(BOLD_RED "-------------------------------------------------------------\n"RESET);
+                printf(BOLD_MAGENTA "Current Staff Name: %s\n" RESET, s.name);
+                printf(BOLD_MAGENTA "Current Username: %s\n" RESET, s.username);
+                printf(BOLD_MAGENTA "Current Password: %s\n\n" RESET, s.password);
+                printf(BOLD_GREEN "\nEnter new username: " RESET);
                 scanf("%s", s.username);
                 getchar();
-                printf(BOLD_YELLOW"Enter new password: "RESET);
+                printf(BOLD_WHITE "Enter new password: "RESET);
                 scanf("%s", s.password);
                 getchar(); // Consume the newline character
             }
@@ -622,19 +606,18 @@ void modifyStaff() {
         if (found) {
             remove("staff.txt");
             rename("temp_staff.txt", "staff.txt");
-            printf(BOLD_YELLOW"Staff credentials updated successfully.\n"RESET);
+            printf(BOLD_CYAN "\n\nStaff credentials updated successfully.\n" RESET);
         } else {
             remove("temp_staff.txt");
-            printf(BOLD_YELLOW"Staff not found.\n"RESET);
+            printf(BOLD_RED "Staff not found.\n" RESET);
         }
 
-        printf(BOLD_YELLOW"Do you want to modify another staff member? (Y/N): "RESET);
+        printf(BOLD_GREEN "Do you want to modify another staff member? (Y/N): " RESET);
         scanf(" %c", &modifyAnother);
         getchar(); // Consume the newline character
     } while (modifyAnother == 'Y' || modifyAnother == 'y');
 
-    printf(BOLD_RED"Returning to main menu...\n"RESET);
-    Sleep(1000);
+    printf(BOLD_RED "Returning to main menu...\n" RESET);
 }
 
 // // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Login Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -647,16 +630,16 @@ void staffLogin()
     if (file == NULL)
     {
         printf(BOLD_RED "Error opening file!\n" RESET);
-        printf(BOLD_RED"Returning to Main Menu!\n"RESET);
+        printf("Returning to Main Menu!\n");
         Sleep(3000);
 
         return;
     }
 
-    printf(BOLD_GREEN"Staff Login\n"RESET);
-    printf(BOLD_GREEN"Enter Username: "RESET);
+    printf("Staff Login\n");
+    printf("Enter Username: ");
     scanf("%s", inputUsername);
-    printf(BOLD_GREEN"Enter Password: "RESET);
+    printf("Enter Password: ");
     scanf("%s", inputPassword);
 
     int loginSuccess = 0;
@@ -673,13 +656,13 @@ void staffLogin()
 
     if (loginSuccess)
     {
-        printf(BOLD_YELLOW"Login successful. Welcome, %s!\n"RESET, s.name);
+        printf("Login successful. Welcome, %s!\n", s.name);
         staffMenu(s.name); // Call staff menu
     }
     else
     {
-        printf(BOLD_YELLOW"Invalid Username or Password. Access denied.\n"RESET);
-        printf(BOLD_YELLOW"Returning to main Menu.\n"RESET);
+        printf("Invalid Username or Password. Access denied.\n");
+        printf("Returning to main Menu.\n");
         Sleep(3000);
     }
 }
@@ -691,18 +674,17 @@ void staffMenu(const char *staffName)
     do
     {
         system("cls");
-        printf(BOLD_CYAN"\nWelcome, %s!\n"RESET, staffName);
-        printf(BOLD_CYAN"1. View Products\n"RESET);
-        printf(BOLD_CYAN"2. Search Products\nRESET");
-        printf(BOLD_CYAN"3. Add New Product\n"RESET);
-        printf(BOLD_CYAN"4. Modify Product\n"RESET);
-        printf(BOLD_CYAN"5. Delete Product\n"RESET);
-        printf(BOLD_CYAN"6. Check Low Stock\n"RESET);
-        printf(BOLD_CYAN"7. Logout\n"RESET);
-        printf(BOLD_CYAN"Enter your choice: "RESET);
+        printf("\nWelcome, %s!\n", staffName);
+        printf("1. View Products\n");
+        printf("2. Search Products\n");
+        printf("3. Add New Product\n");
+        printf("4. Modify Product\n");
+        printf("5. Delete Product\n");
+        printf("6. Check Low Stock\n");
+        printf("7. Logout\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar(); // Consume newline character
-        fflush(stdin);
 
         switch (choice)
         {
@@ -727,15 +709,13 @@ void staffMenu(const char *staffName)
         case 7:
             return;
         default:
-            printf(BOLD_RED"Invalid choice. Please enter a valid option.\n"RESET);
-            Sleep(2000);
+            printf("Invalid choice. Please enter a valid option.\n");
             break;
         }
 
-        printf(BOLD_RED"\nDo you want to perform another action? (Y/N): "RESET);
+        printf("\nDo you want to perform another action? (Y/N): ");
         scanf(" %c", &stay);
         getchar(); // Consume newline character
-        fflush(stdin);
     } while (stay == 'Y' || stay == 'y');
 }
 
@@ -747,38 +727,36 @@ void addProduct()
     FILE *file = fopen("products.txt", "a+");
     if (file == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
 
     do
     {
         system("cls");
-        printf(BOLD_CYAN"Enter Product ID: "RESET);
+        printf(BOLD_GREEN "Enter Product ID: " RESET);
         scanf("%d", &p1.ID);
         getchar(); // Consume the newline character
 
-        printf(BOLD_CYAN"Enter Product Category: "RESET);
+        printf(BOLD_YELLOW "Enter Product Category: " RESET);
         fgets(p1.category, sizeof(p1.category), stdin);
         p1.category[strcspn(p1.category, "\n")] = 0; // Remove newline character
 
-        printf(BOLD_CYAN"Enter Product Name: "RESET);
+        printf(BOLD_MAGENTA "Enter Product Name: " RESET);
         fgets(p1.name, sizeof(p1.name), stdin);
         p1.name[strcspn(p1.name, "\n")] = 0; // Remove newline character
 
-        printf(BOLD_CYAN"Enter Product Price: "RESET);
+        printf(BOLD_BLUE "Enter Product Price: " RESET);
         scanf("%f", &p1.price);
         getchar(); // Consume the newline character
 
-        printf(BOLD_CYAN"Enter Quantity [pics/KG]: "RESET);
+        printf(BOLD_WHITE "Enter Quantity [pics/KG]: " RESET);
         scanf("%f", &p1.quantity);
         getchar(); // Consume the newline character
 
         fprintf(file, "%d\t%s\t%s\t%.2f\t%.2f\n", p1.ID, p1.category, p1.name, p1.price, p1.quantity);
         printf(BOLD_CYAN "\nItem Successfully Added. Do you want to add more? (Y/N): " RESET);
         scanf(" %c", &choice);
-        getchar();
-        fflush(stdin);
     } while (choice == 'Y' || choice == 'y');
 
     fclose(file);
@@ -796,12 +774,12 @@ void deleteProduct() {
         FILE *file = fopen("products.txt", "r");
         FILE *tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL) {
-            printf(BOLD_GREEN"Error opening file!\n"RESET);
+            printf("Error opening file!\n");
             return;
         }
 
         system("cls");
-        printf(BOLD_GREEN"Enter Product ID to delete: "RESET);
+        printf(BOLD_RED "Enter Product ID to delete: " RESET);
         scanf("%d", &idToDelete);
         getchar();
 
@@ -819,16 +797,15 @@ void deleteProduct() {
         if (found) {
             remove("products.txt");
             rename("temp.txt", "products.txt");
-            printf(BOLD_MAGENTA"Product deleted successfully.\n"RESET);
+            printf(BOLD_GREEN "Product deleted successfully.\n" RESET);
         } else {
             remove("temp.txt");
-            printf("Product not found.\n");
+            printf(BOLD_YELLOW "Product not found.\n" RESET);
         }
 
-        printf(BOLD_RED"Do you want to delete another item? (Y/N): "RESET);
+        printf(BOLD_WHITE "Do you want to delete another item? (Y/N): " RESET);
         scanf(" %c", &more);
         getchar();  // Consume the newline character
-        fflush(stdin);
 
     } while (more == 'Y' || more == 'y');
 }
@@ -842,7 +819,7 @@ void viewProduct()
     file = fopen("products.txt", "r");
     if (file == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
 
@@ -857,13 +834,13 @@ void viewProduct()
     // Check if the file was empty
     if (count == 0)
     {
-        printf(BOLD_RED"\tNo Products Available Right Now. :( \n"RESET);
+        printf("\tNo Products Available Right Now. :( \n");
         return;
     }
 
     // Display products grouped by category
-    printf(BOLD_YELLOW"\n\t<== Products by Category ==>\n"RESET);
-    printf(BOLD_YELLOW"\t___________________________\n"RESET);
+    printf("\n\t<== Products by Category ==>\n");
+    printf("\t___________________________\n");
 
     // Loop through each product
     for (int i = 0; i < count; i++)
@@ -935,14 +912,22 @@ void searchProduct()
             searchTerm[strcspn(searchTerm, "\n")] = 0; // Remove newline character
 
             printf(BOLD_YELLOW "\n\t<== Products in Category: %s ==>\n\n" RESET, searchTerm);
-            printf("ID     Name                 Price     Quantity\n");
+            // printf("ID     Name                 Price     Quantity\n");
+            printf(BOLD_RED "ID" RESET);
+            printf(BOLD_GREEN "     Name" RESET);
+            printf(BOLD_WHITE "                 Price" RESET);
+            printf(BOLD_MAGENTA "     Quantity\n" RESET);
             printf("---------------------------------------------\n");
 
             while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF)
             {
                 if (strcasecmp(p1.category, searchTerm) == 0)
                 {
-                    printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.name, p1.price, p1.quantity);
+                    // printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.name, p1.price, p1.quantity);
+                    printf(BOLD_RED "%-6d " RESET, p1.ID);
+                    printf(BOLD_GREEN "%-20s " RESET, p1.name);
+                    printf(BOLD_WHITE "%-8.2f " RESET, p1.price);
+                    printf(BOLD_MAGENTA "%.2f\n" RESET, p1.quantity);
                     found = 1;
                 }
             }
@@ -954,14 +939,23 @@ void searchProduct()
             searchTerm[strcspn(searchTerm, "\n")] = 0; // Remove newline character
 
             printf(BOLD_YELLOW "\n\t<== Products with Name: %s ==>\n\n" RESET, searchTerm);
-            printf("ID     Category            Price     Quantity\n");
-            printf("---------------------------------------------\n");
+            // printf("ID     Category            Price     Quantity\n");
+            printf(BOLD_RED "ID" RESET);
+            printf(BOLD_GREEN "     Name" RESET);
+            printf(BOLD_WHITE "                 Price" RESET);
+            printf(BOLD_MAGENTA "     Quantity\n" RESET);
+            printf(BOLD_CYAN "---------------------------------------------\n" RESET);
 
             while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p1.ID, p1.category, p1.name, &p1.price, &p1.quantity) != EOF)
             {
                 if (strcasecmp(p1.name, searchTerm) == 0)
                 {
-                    printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.category, p1.price, p1.quantity);
+                    // printf("%-6d %-20s %-7.2f  %.2f\n", p1.ID, p1.category, p1.price, p1.quantity);
+                    printf(BOLD_RED "%-6d " RESET, p1.ID);
+                    printf(BOLD_GREEN "%-20s " RESET, p1.name);
+                    printf(BOLD_WHITE "%-8.2f " RESET, p1.price);
+                    printf(BOLD_MAGENTA "%.2f\n" RESET, p1.quantity);
+                    
                     found = 1;
                 }
             }
@@ -969,7 +963,6 @@ void searchProduct()
         else
         {
             printf(BOLD_RED "Invalid choice.\n" RESET);
-            Sleep(2000);
         }
 
         if (found == 0)
@@ -979,10 +972,8 @@ void searchProduct()
 
         fclose(file);
 
-        printf(BOLD_RED"\nDo you want to search again? (Y/N): " RESET);
+        printf(BOLD_GREEN "\nDo you want to search again? (Y/N): " RESET);
         scanf(" %c", &repeat);
-        getchar();
-        fflush(stdin);
     } while (repeat == 'Y' || repeat == 'y');
 }
 
@@ -999,22 +990,22 @@ void modifyProduct() {
         FILE *file = fopen("products.txt", "r");
         FILE *tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL) {
-            printf(BOLD_RED"Error opening file!\n"RESET);
+            printf("Error opening file!\n");
             return;
         }
 
-        printf(BOLD_GREEN"Enter Product ID to modify: "RESET);
+        printf(BOLD_GREEN "Enter Product ID to modify: " RESET);
         scanf("%d", &idToModify);
         getchar(); // Consume the newline character
 
         while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF) {
             if (p.ID == idToModify) {
                 found = 1;
-                printf(BOLD_YELLOW"-------------------------------------------------------------\n"RESET);
-                printf(BOLD_CYAN"Enter new Product Price: "RESET);
+                printf(BOLD_RED "-------------------------------------------------------------\n" RESET);
+                printf(BOLD_YELLOW "Enter new Product Price: "RESET);
                 scanf("%f", &p.price);
                 getchar(); // Consume the newline character
-                printf(BOLD_CYAN"Enter new Product Quantity: "RESET);
+                printf(BOLD_YELLOW "Enter new Product Quantity: " RESET);
                 scanf("%f", &p.quantity);
                 getchar(); // Consume the newline character
             }
@@ -1027,20 +1018,19 @@ void modifyProduct() {
         if (found) {
             remove("products.txt");
             rename("temp.txt", "products.txt");
-            printf(BOLD_GREEN"Product modified successfully.\n"RESET);
+            printf(BOLD_GREEN "Product modified successfully.\n" RESET);
         } else {
             remove("temp.txt");
-            printf(BOLD_RED"Product not found.\n"RESET);
+            printf("Product not found.\n");
         }
 
-        printf(BOLD_RED"Do you want to modify another product? (Y/N): "RESET);
+        printf(BOLD_CYAN "Do you want to modify another product? (Y/N): " RESET);
         scanf(" %c", &modifyAnother);
         getchar(); // Consume the newline character
-        fflush(stdin);
     } while (modifyAnother == 'Y' || modifyAnother == 'y');
 
     // Ensure function returns control properly
-    printf(BOLD_RED"Returning to main menu...\n"RESET);
+    printf(BOLD_RED "Returning to main menu...\n" RESET);
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Buy Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1071,7 +1061,7 @@ void buyProduct() {
     printf(BOLD_YELLOW "Enter your name: " RESET);
     fgets(purchase.customerName, sizeof(purchase.customerName), stdin);
     purchase.customerName[strcspn(purchase.customerName, "\n")] = 0; // Remove newline character
-    printf(BOLD_YELLOW"Enter your phone number: " RESET);
+    printf(BOLD_CYAN "Enter your phone number: " RESET);
     fgets(purchase.phoneNumber, sizeof(purchase.phoneNumber), stdin);
     purchase.phoneNumber[strcspn(purchase.phoneNumber, "\n")] = 0; // Remove newline character
 
@@ -1080,14 +1070,14 @@ void buyProduct() {
         tempFile = fopen("temp.txt", "w");
         salesFile = fopen("sales.txt", "a+");
         if (file == NULL || tempFile == NULL || salesFile == NULL) {
-            printf(BOLD_RED"Error opening file!\n"RESET);
+            printf("Error opening file!\n");
             return;
         }
         found = 0;
-        printf(BOLD_YELLOW "-------------------------------------------------------------\n" RESET);
-        printf(BOLD_GREEN "\nEnter Product ID to buy: " RESET);
+        printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
+        printf(BOLD_WHITE "\nEnter Product ID to buy: " RESET);
         scanf("%d", &idToBuy);
-        printf(BOLD_GREEN "Enter Quantity: " RESET);
+        printf(BOLD_WHITE "Enter Quantity: " RESET);
         scanf("%d", &quantity);
         while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF) {
             if (p.ID == idToBuy) {
@@ -1102,9 +1092,9 @@ void buyProduct() {
                     cartCount++;
                     fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
                     fprintf(salesFile, "%s\t%s\t%d\t%s\t%d\t%.2f\n", purchase.customerName, purchase.phoneNumber, p.ID, p.name, quantity, itemTotalPrice);
-                    printf(BOLD_CYAN"\nProduct Purchased: %s\n" RESET, p.name);
-                    printf(BOLD_CYAN "Total Price for this item: %.2f\n" RESET, itemTotalPrice);
-                    printf(BOLD_CYAN "-------------------------------------------------------------\n" RESET);
+                    printf(BOLD_CYAN "\nProduct Purchased: %s\n" RESET, p.name);
+                    printf(BOLD_MAGENTA "Total Price for this item: %.2f\n" RESET, itemTotalPrice);
+                    printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
                 } else {
                     printf(BOLD_RED " Sorry :( \nNot enough quantity available.\n" RESET);
                     found = 1;
@@ -1123,44 +1113,55 @@ void buyProduct() {
         remove("products.txt");
         rename("temp.txt", "products.txt");
 
-        printf(BOLD_RED"\nDo you want to add another item? (Y/N): "RESET);
+        printf(BOLD_GREEN "\nDo you want to add another item? (Y/N): " RESET);
         scanf(" %c", &addMore);
     } while (addMore == 'Y' || addMore == 'y');
 
-    printf(BOLD_CYAN "\nFinal Bill:\n" RESET);
-    printf(BOLD_YELLOW "ID     Name                 Category            Quantity  Price\n" RESET);
+    printf(BOLD_BLUE "\n<========================== Final Bill ==========================>\n\n" RESET);
+    // printf(BOLD_YELLOW "ID     Name                 Category            Quantity  Price\n" RESET);
+    printf(BOLD_RED "ID" RESET);
+    printf(BOLD_GREEN "     Name" RESET);
+    printf(BOLD_WHITE "                 Category" RESET);
+    printf(BOLD_MAGENTA "            Quantity" RESET);
+    printf(BOLD_YELLOW "  Price\n" RESET);
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
     for (int i = 0; i < cartCount; i++) {
-        printf("%-6d %-20s %-20s %-9d %.2f\n", cart[i].product.ID, cart[i].product.name, cart[i].product.category, cart[i].quantity, cart[i].totalPrice);
+        // printf("%-6d %-20s %-20s %-9d %.2f\n", cart[i].product.ID, cart[i].product.name, cart[i].product.category, cart[i].quantity, cart[i].totalPrice);
+        printf(BOLD_RED "%-6d " RESET, cart[i].product.ID);
+        printf(BOLD_GREEN "%-20s " RESET, cart[i].product.name);
+        printf(BOLD_WHITE "%-20s " RESET, cart[i].product.category);
+        printf(BOLD_MAGENTA "%-9d" RESET, cart[i].quantity);
+        printf(BOLD_YELLOW "%-5.2f\n", cart[i].product.price);
     }
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
-    printf(BOLD_YELLOW"Total Price: %.2f\n"RESET, totalPrice);
+    printf(BOLD_YELLOW "\n\nTotal Price: %.2f\n" RESET, totalPrice);
+    printf(BOLD_MAGENTA "\n\nThank you for purchasing :)\n" RESET);
 
-    // suparshop may have a vat so added VAT percentage input
-    float vatPercentage, amountGiven, change, vatAmount;
-    printf(BOLD_RED"Enter VAT percentage: "RESET);
-    scanf("%f", &vatPercentage);
+    // // suparshop may have a vat so added VAT percentage input
+    // float vatPercentage, amountGiven, change, vatAmount;
+    // printf(BOLD_CYAN "Enter VAT percentage: " RESET);
+    // scanf("%f", &vatPercentage);
 
-    // Calculate VAT and final total price
-    vatAmount = (totalPrice * vatPercentage) / 100;
-    totalPrice += vatAmount;
+    // // Calculate VAT and final total price
+    // vatAmount = (totalPrice * vatPercentage) / 100;
+    // totalPrice += vatAmount;
 
-    printf(BOLD_YELLOW"Total Price including VAT: %.2f\n"RESET, totalPrice);
+    // printf(BOLD_WHITE "Total Price including VAT: %.2f\n" RESET, totalPrice);
 
-    // Keep asking for sufficient amount until the purchase is successful
-    do {
-        printf(BOLD_RED"Enter amount given by the customer: "RESET);
-        scanf("%f", &amountGiven);
+    // // Keep asking for sufficient amount until the purchase is successful
+    // do {
+    //     printf(BOLD_GREEN "Enter amount given by the customer: " RESET);
+    //     scanf("%f", &amountGiven);
 
-        if (amountGiven >= totalPrice) {
-            change = amountGiven - totalPrice;
-            printf(BOLD_RED"Change to be returned: %.2f\n"RESET, change);
-            break; // Exit loop if the amount given is sufficient
-        } else {
-            float amountNeeded = totalPrice - amountGiven;
-            printf(BOLD_YELLOW"Insufficient amount. You need to give %.2f more.\n"RESET, amountNeeded);
-        }
-    } while (1); // Loop until sufficient amount is given
+    //     if (amountGiven >= totalPrice) {
+    //         change = amountGiven - totalPrice;
+    //         printf(BOLD_RED "Change to be returned: %.2f\n" RESET, change);
+    //         break; // Exit loop if the amount given is sufficient
+    //     } else {
+    //         float amountNeeded = totalPrice - amountGiven;
+    //         printf("Insufficient amount. You need to give %.2f more.\n", amountNeeded);
+    //     }
+    // } while (1); // Loop until sufficient amount is given
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Generate Bill Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -1181,17 +1182,27 @@ void generateSalesReport()
     FILE *salesFile = fopen("sales.txt", "r");
     if (salesFile == NULL)
     {
-        printf(BOLD_RED"Error opening sales file!\n"RESET);
+        printf("Error opening sales file!\n");
         return;
     }
     system("cls");
-    printf(BOLD_YELLOW"\nSales Report:\n\n"RESET);
-    printf(BOLD_YELLOW"Customer Name           Phone Number    Product ID   Product Name       Quantity    Total Price\n"RESET);
+    printf(BOLD_BLUE "\nSales Report:\n\n" RESET);
+    printf(BOLD_YELLOW "Customer Name" RESET);
+    printf(BOLD_WHITE "          Phone Number" RESET);
+    printf(BOLD_RED "    Product ID" RESET);
+    printf(BOLD_YELLOW "   Product Name" RESET);
+    printf(BOLD_CYAN "       Quantity" RESET);
+    printf(BOLD_MAGENTA "    Total Price\n" RESET);
     printf(BOLD_MAGENTA "------------------------------------------------------------------------------------------------\n" RESET);
 
     while (fscanf(salesFile, "%99[^\t]\t%14[^\t]\t%d\t%99[^\t]\t%d\t%f\n", purchase.customerName, purchase.phoneNumber, &purchase.productID, purchase.productName, &purchase.quantity, &purchase.totalPrice) != EOF)
     {
-        printf("%-23s %-15s %-12d %-20s %-10d %.2f\n", purchase.customerName, purchase.phoneNumber, purchase.productID, purchase.productName, purchase.quantity, purchase.totalPrice);
+        printf(BOLD_YELLOW "%-23s" RESET, purchase.customerName);
+        printf(BOLD_WHITE " %-15s" RESET, purchase.phoneNumber);
+        printf(BOLD_RED " %-12d" RESET, purchase.productID);
+        printf(BOLD_YELLOW " %-20s" RESET,  purchase.productName);
+        printf(BOLD_CYAN " %-10d" RESET, purchase.quantity);
+        printf(BOLD_MAGENTA " %.2f\n" RESET, purchase.totalPrice);
     }
     printf(BOLD_MAGENTA "------------------------------------------------------------------------------------------------\n" RESET);
     fclose(salesFile);
@@ -1209,15 +1220,23 @@ void checkLowStock()
         return;
     }
     system("cls"); // clearing Screen
-    printf(BOLD_RED"\nLow Stock Alert:\n"RESET);
-    printf(BOLD_YELLOW"Product ID    Name                 Category            Available Quantity\n"RESET);
-    printf(BOLD_GREEN"-----------------------------------------------------------------------\n"RESET);
+    printf("\nLow Stock Alert:\n");
+    // printf("Product ID    Name                 Category            Available Quantity\n");
+    printf(BOLD_RED "Product ID" RESET);
+    printf(BOLD_YELLOW "    Name" RESET);
+    printf(BOLD_WHITE "                 Category" RESET);
+    printf(BOLD_CYAN "            Available Quantity\n" RESET);
+    printf("-----------------------------------------------------------------------\n");
 
     while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
     {
         if (p.quantity < 10)
         { // asuming the low stock in less then 10
-            printf(BOLD_RED"%-12d %-20s %-20s %.2f\n"RESET, p.ID, p.name, p.category, p.quantity);
+            // printf("%-12d %-20s %-20s %.2f\n", p.ID, p.name, p.category, p.quantity);
+            printf(BOLD_RED "%-12d" RESET, p.ID);
+            printf(BOLD_YELLOW " %-20s" RESET, p.name);
+            printf(BOLD_WHITE " %-20s" RESET, p.category);
+            printf(BOLD_CYAN " %.2f\n" RESET, p.quantity);
         }
     }
 
@@ -1233,7 +1252,7 @@ void backupData(const char *sourceFile, const char *backupFile)
 
     if (source == NULL || backup == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
 
@@ -1245,7 +1264,7 @@ void backupData(const char *sourceFile, const char *backupFile)
 
     fclose(source);
     fclose(backup);
-    printf(BOLD_GREEN"Backup of %s created successfully as %s\n"RESET, sourceFile, backupFile);
+    printf(BOLD_CYAN "Backup of %s created successfully as %s\n" RESET, sourceFile, backupFile);
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking Review from Customer >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void giveReview()
@@ -1254,39 +1273,34 @@ void giveReview()
     FILE *file = fopen("reviews.txt", "a+");
     if (file == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         return;
     }
+
     system("cls");
-    printf(BOLD_YELLOW"Enter your name: "RESET);
+    printf(YELLOW "Enter your name: " RESET);
     fgets(r.name, sizeof(r.name), stdin);
     r.name[strcspn(r.name, "\n")] = 0; // Remove newline character
 
-    printf(BOLD_YELLOW"Enter your phone number: "RESET);
+    printf(CYAN "\nEnter your phone number: "RESET);
     fgets(r.phoneNumber, sizeof(r.phoneNumber), stdin);
     r.phoneNumber[strcspn(r.phoneNumber, "\n")] = 0; // Remove newline character
 
     do
     {
-        printf(BOLD_MAGENTA"Rate our super shop (1-5): "RESET);
-        scanf("%f", &r.rating); 
+        printf(RED "\nRate our super shop (1-5): " RESET);
+        scanf("%f", &r.rating);
         getchar(); // Consume the newline character
-        fflush(stdin);
-        if (r.rating < 1 || r.rating > 5)
-        {
-            printf(BOLD_RED"Invald Rating please Enter valid Number!\n\n"RESET);
-        }
-        
     } while (r.rating < 1 || r.rating > 5);
 
-    printf(BOLD_WHITE"Enter your comments (200 words max): "RESET);
+    printf(WHITE "\nEnter your comments (200 words max): " RESET);
     fgets(r.comments, sizeof(r.comments), stdin);
     r.comments[strcspn(r.comments, "\n")] = 0; // Remove newline character
 
-    fprintf(file, BOLD_YELLOW"%s\t%s\t%f\t%s\n"RESET, r.name, r.phoneNumber, r.rating, r.comments);
+    fprintf(file, "%s\t%s\t%f\t%s\n", r.name, r.phoneNumber, r.rating, r.comments);
     fclose(file);
 
-    printf(BOLD_MAGENTA"Thank you for your feedback!\n"RESET);
+    printf(MAGENTA "\n\n\nThank you for your feedback!\n" RESET);
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Viewing customer reviews >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void viewReviews()
@@ -1295,22 +1309,30 @@ void viewReviews()
     FILE *file = fopen("reviews.txt", "r");
     if (file == NULL)
     {
-        printf(BOLD_RED"Error opening file!\n"RESET);
+        printf("Error opening file!\n");
         Sleep(2000);
         return;
         
     }
     system("cls");
-    printf(BOLD_GREEN"\nCustomer Reviews:\n"RESET);
-    printf(BOLD_GREEN"Name                     Phone Number    Rating  Comments\n"RESET);
-    printf(BOLD_YELLOW"----------------------------------------------------------------------------\n\n"RESET);
+    printf(BOLD_CYAN "\nCustomer Reviews:\n" RESET);
+    // printf("Name                     Phone Number    Rating  Comments\n");
+    printf(BOLD_YELLOW "Name" RESET);
+    printf(BOLD_MAGENTA "                     Phone Number" RESET);
+    printf(BOLD_RED "    Rating" RESET);
+    printf(BOLD_WHITE "  Comments\n" RESET);
+    printf(BOLD_RED"----------------------------------------------------------------------------\n\n" RESET);
 
     while (fscanf(file, "%99[^\t]\t%14[^\t]\t%f\t%499[^\n]\n", r.name, r.phoneNumber, &r.rating, r.comments) != EOF)
     {
-        printf(BOLD_CYAN"%-24s %-15s %-7.2f %s\n\n"RESET, r.name, r.phoneNumber, r.rating, r.comments);
-        printf(BOLD_GREEN"----------------------------------------------------------------------------\n\n"RESET);
+        // printf("%-24s %-15s %-7.2f %s\n\n", r.name, r.phoneNumber, r.rating, r.comments);
+        printf(BOLD_YELLOW "%-24s" RESET, r.name);
+        printf(BOLD_MAGENTA " %-15s" RESET, r.phoneNumber);
+        printf(BOLD_RED " %-7.2f" RESET, r.rating);
+        printf(BOLD_WHITE" %s\n\n" RESET, r.comments);
+        printf(BOLD_RED "----------------------------------------------------------------------------\n\n" RESET);
     }
 
     fclose(file);
 }
-// end of the project Super shop Management
+// end of the project Super shop Management.
