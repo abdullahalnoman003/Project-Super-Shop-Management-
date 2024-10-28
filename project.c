@@ -320,11 +320,11 @@ void adminLogin()
             else
             {
                 printf(BOLD_RED "No attempts left. Returning to main menu.\n" RESET);
-                printf(RED"3\n" RESET);
+                printf(BOLD_CYAN"3\n" RESET);
                 Sleep(1000);
-                printf(WHITE "2\n" RESET);
+                printf(BOLD_CYAN "2\n" RESET);
                 Sleep(1000);
-                printf(RED "1\n" RESET);
+                printf(BOLD_CYAN "1\n" RESET);
                 Sleep(1000);
                 return; // Exit to the main menu after all attempts are used
             }
@@ -524,7 +524,7 @@ void removeStaff()
     FILE *tempFile = fopen("temp_staff.txt", "w");
     if (file == NULL || tempFile == NULL)
     {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         return;
     }
 
@@ -556,7 +556,7 @@ void removeStaff()
     else
     {
         remove("temp_staff.txt");
-        printf("Staff not found.\n");
+        printf(BOLD_RED"Staff not found.\n"RESET);
     }
 }
 
@@ -571,7 +571,7 @@ void modifyStaff() {
         FILE *file = fopen("staff.txt", "r");
         FILE *tempFile = fopen("temp_staff.txt", "w");
         if (file == NULL || tempFile == NULL) {
-            printf("Error opening file!\n");
+            printf(BOLD_RED"Error opening file!\n"RESET);
             return;
         }
 
@@ -636,11 +636,11 @@ void staffLogin()
         return;
     }
 
-    printf("Staff Login\n");
-    printf("Enter Username: ");
-    scanf("%s", inputUsername);
-    printf("Enter Password: ");
-    scanf("%s", inputPassword);
+    printf(BOLD_GREEN"Staff Login\n"RESET);
+    printf(BOLD_YELLOW"Enter Username: "RESET);
+    scanf(BOLD_YELLOW"%s"RESET, inputUsername);
+    printf(BOLD_YELLOW"Enter Password: "RESET);
+    scanf(BOLD_YELLOW"%s"RESET, inputPassword);
 
     int loginSuccess = 0;
     while (fscanf(file, "%d\t%[^\t]\t%s\t%s\n", &s.id, s.name, s.username, s.password) != EOF)
@@ -656,13 +656,13 @@ void staffLogin()
 
     if (loginSuccess)
     {
-        printf("Login successful. Welcome, %s!\n", s.name);
+        printf(BOLD_GREEN"Login successful. Welcome, %s!\n"RESET, s.name);
         staffMenu(s.name); // Call staff menu
     }
     else
     {
-        printf("Invalid Username or Password. Access denied.\n");
-        printf("Returning to main Menu.\n");
+        printf(BOLD_RED"Invalid Username or Password. Access denied.\n"RESET);
+        printf(BOLD_GREEN"Returning to main Menu.\n"RESET);
         Sleep(3000);
     }
 }
@@ -674,15 +674,15 @@ void staffMenu(const char *staffName)
     do
     {
         system("cls");
-        printf("\nWelcome, %s!\n", staffName);
-        printf("1. View Products\n");
-        printf("2. Search Products\n");
-        printf("3. Add New Product\n");
-        printf("4. Modify Product\n");
-        printf("5. Delete Product\n");
-        printf("6. Check Low Stock\n");
-        printf("7. Logout\n");
-        printf("Enter your choice: ");
+        printf(BOLD_CYAN"\nWelcome, %s!\n"RESET, staffName);
+        printf(BOLD_CYAN"1. View Products\n"RESET);
+        printf(BOLD_CYAN"2. Search Products\n"RESET);
+        printf(BOLD_CYAN"3. Add New Product\n"RESET);
+        printf(BOLD_CYAN"4. Modify Product\n"RESET);
+        printf(BOLD_CYAN"5. Delete Product\n"RESET);
+        printf(BOLD_CYAN"6. Check Low Stock\n"RESET);
+        printf(BOLD_CYAN"7. Logout\n"RESET);
+        printf(BOLD_CYAN"Enter your choice: "RESET);
         scanf("%d", &choice);
         getchar(); // Consume newline character
 
@@ -709,11 +709,11 @@ void staffMenu(const char *staffName)
         case 7:
             return;
         default:
-            printf("Invalid choice. Please enter a valid option.\n");
+            printf(BOLD_RED"Invalid choice. Please enter a valid option.\n"RESET);
             break;
         }
 
-        printf("\nDo you want to perform another action? (Y/N): ");
+        printf(BOLD_RED"\nDo you want to perform another action? (Y/N): "RESET);
         scanf(" %c", &stay);
         getchar(); // Consume newline character
     } while (stay == 'Y' || stay == 'y');
@@ -727,7 +727,7 @@ void addProduct()
     FILE *file = fopen("products.txt", "a+");
     if (file == NULL)
     {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         return;
     }
 
@@ -774,7 +774,7 @@ void deleteProduct() {
         FILE *file = fopen("products.txt", "r");
         FILE *tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL) {
-            printf("Error opening file!\n");
+            printf(BOLD_RED"Error opening file!\n"RESET);
             return;
         }
 
