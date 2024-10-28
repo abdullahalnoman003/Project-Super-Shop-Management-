@@ -1181,12 +1181,12 @@ void generateSalesReport()
     FILE *salesFile = fopen("sales.txt", "r");
     if (salesFile == NULL)
     {
-        printf("Error opening sales file!\n");
+        printf(BOLD_RED"Error opening sales file!\n"RESET);
         return;
     }
     system("cls");
-    printf("\nSales Report:\n\n");
-    printf("Customer Name           Phone Number    Product ID   Product Name       Quantity    Total Price\n");
+    printf(BOLD_YELLOW"\nSales Report:\n\n"RESET);
+    printf(BOLD_YELLOW"Customer Name           Phone Number    Product ID   Product Name       Quantity    Total Price\n"RESET);
     printf(BOLD_MAGENTA "------------------------------------------------------------------------------------------------\n" RESET);
 
     while (fscanf(salesFile, "%99[^\t]\t%14[^\t]\t%d\t%99[^\t]\t%d\t%f\n", purchase.customerName, purchase.phoneNumber, &purchase.productID, purchase.productName, &purchase.quantity, &purchase.totalPrice) != EOF)
@@ -1209,15 +1209,15 @@ void checkLowStock()
         return;
     }
     system("cls"); // clearing Screen
-    printf("\nLow Stock Alert:\n");
-    printf("Product ID    Name                 Category            Available Quantity\n");
-    printf("-----------------------------------------------------------------------\n");
+    printf(BOLD_RED"\nLow Stock Alert:\n"RESET);
+    printf(BOLD_YELLOW"Product ID    Name                 Category            Available Quantity\n"RESET);
+    printf(BOLD_GREEN"-----------------------------------------------------------------------\n"RESET);
 
     while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
     {
         if (p.quantity < 10)
         { // asuming the low stock in less then 10
-            printf("%-12d %-20s %-20s %.2f\n", p.ID, p.name, p.category, p.quantity);
+            printf(BOLD_RED"%-12d %-20s %-20s %.2f\n"RESET, p.ID, p.name, p.category, p.quantity);
         }
     }
 
@@ -1233,7 +1233,7 @@ void backupData(const char *sourceFile, const char *backupFile)
 
     if (source == NULL || backup == NULL)
     {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         return;
     }
 
@@ -1245,7 +1245,7 @@ void backupData(const char *sourceFile, const char *backupFile)
 
     fclose(source);
     fclose(backup);
-    printf("Backup of %s created successfully as %s\n", sourceFile, backupFile);
+    printf(BOLD_GREEN"Backup of %s created successfully as %s\n"RESET, sourceFile, backupFile);
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking Review from Customer >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void giveReview()
@@ -1254,21 +1254,21 @@ void giveReview()
     FILE *file = fopen("reviews.txt", "a+");
     if (file == NULL)
     {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         return;
     }
     system("cls");
-    printf("Enter your name: ");
+    printf(BOLD_YELLOW"Enter your name: "RESET);
     fgets(r.name, sizeof(r.name), stdin);
     r.name[strcspn(r.name, "\n")] = 0; // Remove newline character
 
-    printf("Enter your phone number: ");
+    printf(BOLD_YELLOW"Enter your phone number: "RESET);
     fgets(r.phoneNumber, sizeof(r.phoneNumber), stdin);
     r.phoneNumber[strcspn(r.phoneNumber, "\n")] = 0; // Remove newline character
 
     do
     {
-        printf("Rate our super shop (1-5): ");
+        printf(BOLD_MAGENTA"Rate our super shop (1-5): "RESET);
         scanf("%f", &r.rating); 
         getchar(); // Consume the newline character
         fflush(stdin);
@@ -1279,14 +1279,14 @@ void giveReview()
         
     } while (r.rating < 1 || r.rating > 5);
 
-    printf("Enter your comments (200 words max): ");
+    printf(BOLD_WHITE"Enter your comments (200 words max): "RESET);
     fgets(r.comments, sizeof(r.comments), stdin);
     r.comments[strcspn(r.comments, "\n")] = 0; // Remove newline character
 
-    fprintf(file, "%s\t%s\t%f\t%s\n", r.name, r.phoneNumber, r.rating, r.comments);
+    fprintf(file, BOLD_YELLOW"%s\t%s\t%f\t%s\n"RESET, r.name, r.phoneNumber, r.rating, r.comments);
     fclose(file);
 
-    printf("Thank you for your feedback!\n");
+    printf(BOLD_MAGENTA"Thank you for your feedback!\n"RESET);
 }
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Viewing customer reviews >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void viewReviews()
@@ -1295,20 +1295,20 @@ void viewReviews()
     FILE *file = fopen("reviews.txt", "r");
     if (file == NULL)
     {
-        printf("Error opening file!\n");
+        printf(BOLD_RED"Error opening file!\n"RESET);
         Sleep(2000);
         return;
         
     }
     system("cls");
-    printf("\nCustomer Reviews:\n");
-    printf("Name                     Phone Number    Rating  Comments\n");
-    printf("----------------------------------------------------------------------------\n\n");
+    printf(BOLD_GREEN"\nCustomer Reviews:\n"RESET);
+    printf(BOLD_GREEN"Name                     Phone Number    Rating  Comments\n"RESET);
+    printf(BOLD_YELLOW"----------------------------------------------------------------------------\n\n"RESET);
 
     while (fscanf(file, "%99[^\t]\t%14[^\t]\t%f\t%499[^\n]\n", r.name, r.phoneNumber, &r.rating, r.comments) != EOF)
     {
-        printf("%-24s %-15s %-7.2f %s\n\n", r.name, r.phoneNumber, r.rating, r.comments);
-        printf("----------------------------------------------------------------------------\n\n");
+        printf(BOLD_CYAN"%-24s %-15s %-7.2f %s\n\n"RESET, r.name, r.phoneNumber, r.rating, r.comments);
+        printf(BOLD_GREEN"----------------------------------------------------------------------------\n\n"RESET);
     }
 
     fclose(file);
