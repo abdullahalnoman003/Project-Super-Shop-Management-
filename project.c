@@ -1220,15 +1220,15 @@ void checkLowStock()
         return;
     }
     system("cls"); // clearing Screen
-    printf("\nLow Stock Alert:\n");
+    printf(BOLD_RED "\nLow Stock Alert:\n\n" RESET);
     // printf("Product ID    Name                 Category            Available Quantity\n");
     printf(BOLD_RED "Product ID" RESET);
     printf(BOLD_YELLOW "    Name" RESET);
     printf(BOLD_WHITE "                 Category" RESET);
     printf(BOLD_CYAN "            Available Quantity\n" RESET);
-    printf("-----------------------------------------------------------------------\n");
+    printf(BOLD_MAGENTA "-----------------------------------------------------------------------\n" RESET);
 
-    while (fscanf(file, "%d\t%s\t%s\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
+    while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
     {
         if (p.quantity < 10)
         { // asuming the low stock in less then 10
