@@ -271,6 +271,8 @@ void customer()
         // asking user if he wants to stay or not
         printf(BOLD_GREEN "\nDo you want to stay in the Customer Menu? (Y/N): " RESET);
         scanf(" %c", &stay); // the space before %c to consume any leftover newline character
+        getchar();
+        fflush(stdin);
 
     } while (stay == 'Y' || stay == 'y');
     system("cls"); // Clearing screen
