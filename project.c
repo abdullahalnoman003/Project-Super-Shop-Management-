@@ -109,8 +109,10 @@ void menu()
         printf(BOLD_YELLOW "*" RESET);
         Sleep(10);
     }
-    printf("\n\t");
-    printf(GREEN "*******        Welcome to Super Shop Management System!        *******\n" RESET);
+    printf("\n");
+    printf(GREEN "\t*******              Welcome to The Daily Market!              *******\n" RESET);
+    printf(BOLD_WHITE "\t*******         <------------------------------------>         *******\n" RESET);
+    printf(GREEN "\t*******          {_Your One-Stop Shop for Everything_}         *******\n" RESET);
     printf("\t");
     for (i = 0; i < 70; i++)
     {
