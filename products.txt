@@ -1,6 +1,5 @@
 102	Vegetable	Potol	29.00	0.00
-103	Vegetable	Gajor	50.00	197.00
+103	Vegetable	Gajor	50.00	100.00
 104	Vegetable	Korolla	60.00	43.00
 105	Soap	Lux	65.00	97.00
-401	House Holding	Floor Cleaner	100.00	0.00
-100	Dish Wash	Vim Bar	40.00	8.00
+401	House Holding	Floor Cleaner	100.00	110.00
