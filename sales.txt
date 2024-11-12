@@ -6,3 +6,7 @@ logan paul	989898989	401	Floor Cleaner	3	300.00
 Abdullah AL Sovon	01723423232	100	Vim Bar	2	80.00
 Abdullah AL Sovon	01723423232	104	Korolla	2	120.00
 Shovon'	0154165432	103	Gajor	2	100.00
+Noman	025	401	Cleaning Moph	2	360.00
+Noman	025	402	Floor Cleaner	2	160.00
+Noman	025	403	Glitter Washing Bar	2	120.00
+Noman	01725036007	401	Cleaning Moph	2	360.00

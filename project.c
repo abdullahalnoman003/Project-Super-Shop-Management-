@@ -720,13 +720,13 @@ void staffMenu(const char *staffName)
         system("cls");
         printf(BOLD_GREEN "\n\tWelcome, %s!\n" RESET, staffName);
         printf(BOLD_YELLOW "\n<-------------------------------------------->\n\n" RESET);
-        printf(BOLD_CYAN "1. View Products\n" RESET);
-        printf(BOLD_CYAN "2. Search Products\n" RESET);
-        printf(BOLD_CYAN "3. Add New Product\n" RESET);
-        printf(BOLD_CYAN "4. Modify Product\n" RESET);
-        printf(BOLD_CYAN "5. Delete Product\n" RESET);
-        printf(BOLD_CYAN "6. Check Low Stock\n" RESET);
-        printf(BOLD_CYAN "7. Logout\n\n" RESET);
+        printf(BOLD_CYAN "\t1. View Products\n" RESET);
+        printf(BOLD_CYAN "\t2. Search Products\n" RESET);
+        printf(BOLD_CYAN "\t3. Add New Product\n" RESET);
+        printf(BOLD_CYAN "\t4. Modify Product\n" RESET);
+        printf(BOLD_CYAN "\t5. Delete Product\n" RESET);
+        printf(BOLD_CYAN "\t6. Check Low Stock\n" RESET);
+        printf(BOLD_CYAN "\t7. Logout\n\n" RESET);
         printf(BOLD_YELLOW "<-------------------------------------------->\n\n" RESET);
         printf(BOLD_GREEN "Enter your choice: " RESET);
         scanf("%d", &choice);
@@ -784,27 +784,31 @@ void addProduct()
     do
     {
         system("cls");
+
+        printf(BOLD_GREEN "\tEnter Product Information below  " RESET);
+        printf(BOLD_YELLOW "<-------------------------------------------->\n\n" RESET);
         printf(BOLD_GREEN "Enter Product ID: " RESET);
         scanf("%d", &p1.ID);
         getchar(); // Consume the newline character
 
-        printf(BOLD_YELLOW "Enter Product Category: " RESET);
+        printf(BOLD_YELLOW "\tEnter Product Category: " RESET);
         fgets(p1.category, sizeof(p1.category), stdin);
         p1.category[strcspn(p1.category, "\n")] = 0; // Remove newline character
 
-        printf(BOLD_MAGENTA "Enter Product Name: " RESET);
+        printf(BOLD_MAGENTA "\tEnter Product Name: " RESET);
         fgets(p1.name, sizeof(p1.name), stdin);
         p1.name[strcspn(p1.name, "\n")] = 0; // Remove newline character
 
-        printf(BOLD_BLUE "Enter Product Price: " RESET);
+        printf(BOLD_BLUE "\tEnter Product Price: " RESET);
         scanf("%f", &p1.price);
         getchar(); // Consume the newline character
 
-        printf(BOLD_WHITE "Enter Quantity [pics/KG]: " RESET);
+        printf(BOLD_WHITE "\tEnter Quantity [pics/KG]: " RESET);
         scanf("%f", &p1.quantity);
         getchar(); // Consume the newline character
 
         fprintf(file, "%d\t%s\t%s\t%.2f\t%.2f\n", p1.ID, p1.category, p1.name, p1.price, p1.quantity);
+        printf(BOLD_YELLOW "<-------------------------------------------->\n\n" RESET);
         printf(BOLD_CYAN "\nItem Successfully Added. Do you want to add more? (Y/N): " RESET);
         scanf(" %c", &choice);
         fflush(stdin);
@@ -834,7 +838,7 @@ void deleteProduct()
         }
 
         system("cls");
-        printf(BOLD_RED "Enter Product ID to delete: " RESET);
+        printf(BOLD_RED "\tEnter Product ID to delete: " RESET);
         scanf("%d", &idToDelete);
         getchar();
 
@@ -857,12 +861,12 @@ void deleteProduct()
         {
             remove("products.txt");
             rename("temp.txt", "products.txt");
-            printf(BOLD_GREEN "Product deleted successfully.\n" RESET);
+            printf(BOLD_GREEN "\tProduct deleted successfully.\n\n" RESET);
         }
         else
         {
             remove("temp.txt");
-            printf(BOLD_YELLOW "Product not found.\n" RESET);
+            printf(BOLD_RED "\nProduct not found.\n" RESET);
         }
 
         printf(BOLD_WHITE "Do you want to delete another item? (Y/N): " RESET);
@@ -1076,13 +1080,16 @@ void modifyProduct()
             if (p.ID == idToModify)
             {
                 found = 1;
-                printf(BOLD_YELLOW "What do you want to modify: \n" RESET);
-                printf(BOLD_YELLOW "1. Price. \n" RESET);
-                printf(BOLD_YELLOW "2. Quantity. \n" RESET);
-                printf(BOLD_YELLOW "3. Both. \n" RESET);
+                printf(BOLD_YELLOW "\n<-------------------------------------------->\n\n" RESET);
+                printf(BOLD_YELLOW "\t\tWhat do you want to modify: \n" RESET);
+                printf(BOLD_YELLOW "\t1. Price. \n" RESET);
+                printf(BOLD_YELLOW "\t2. Quantity. \n" RESET);
+                printf(BOLD_YELLOW "\t3. Both. \n" RESET);
+                printf(BOLD_YELLOW "<-------------------------------------------->\n\n" RESET);
                 printf(BOLD_CYAN "Enter your choice: " RESET);
                 scanf("%d", &ch);
                 getchar(); // Consume the newline character
+                fflush(stdin);
 
                 switch (ch)
                 {
@@ -1122,7 +1129,8 @@ void modifyProduct()
         {
             remove("products.txt");
             rename("temp.txt", "products.txt");
-            printf(BOLD_GREEN "Product modified successfully.\n" RESET);
+            printf(BOLD_YELLOW "<-------------------------------------------->\n" RESET);
+            printf(BOLD_GREEN "\tProduct modified successfully.\n\n" RESET);
         }
         else
         {
@@ -1169,10 +1177,12 @@ void buyProduct()
     FILE *salesFile;
 
     system("cls");
+    printf(BOLD_CYAN "\tPlease Fillup the information\n" RESET);
+    printf(BOLD_YELLOW "<---------------------------------------------->\n\n" RESET);
     printf(BOLD_YELLOW "Enter your name: " RESET);
     fgets(purchase.customerName, sizeof(purchase.customerName), stdin);
     purchase.customerName[strcspn(purchase.customerName, "\n")] = 0; // Remove newline character
-    printf(BOLD_CYAN "Enter your phone number: " RESET);
+    printf(BOLD_CYAN "\tEnter your phone number: " RESET);
     fgets(purchase.phoneNumber, sizeof(purchase.phoneNumber), stdin);
     purchase.phoneNumber[strcspn(purchase.phoneNumber, "\n")] = 0; // Remove newline character
 
@@ -1188,9 +1198,9 @@ void buyProduct()
             return;
         }
         found = 0;
-        printf(BOLD_WHITE "\nEnter Product ID to buy: " RESET);
+        printf(BOLD_WHITE "\n\tEnter Product ID to buy: " RESET);
         scanf("%d", &idToBuy);
-        printf(BOLD_WHITE "Enter Quantity: " RESET);
+        printf(BOLD_WHITE "\tEnter Quantity: " RESET);
         scanf("%d", &quantity);
         while (fscanf(file, "%d\t%[^\t]\t%[^\t]\t%f\t%f\n", &p.ID, p.category, p.name, &p.price, &p.quantity) != EOF)
         {
@@ -1210,7 +1220,7 @@ void buyProduct()
                     fprintf(salesFile, "%s\t%s\t%d\t%s\t%d\t%.2f\n", purchase.customerName, purchase.phoneNumber, p.ID, p.name, quantity, itemTotalPrice);
                     printf(BOLD_CYAN "\nProduct Purchased: %s\n" RESET, p.name);
                     printf(BOLD_MAGENTA "Total Price for this item: %.2f\n" RESET, itemTotalPrice);
-                    printf(BOLD_GREEN "-------------------------------------------------------------\n" RESET);
+                    printf(BOLD_GREEN "<----------------------------------------------------------->\n" RESET);
                 }
                 else
                 {
@@ -1226,7 +1236,7 @@ void buyProduct()
         }
         if (!found)
         {
-            printf(BOLD_RED "Sorry :( Product not found. \nPlease try again with valid ProductID.>>\n" RESET);
+            printf(BOLD_RED "Sorry :( Product not found. \nPlease try again with valid ProductID.>>\n\n" RESET);
             Sleep(2000);
         }
         fclose(file);
@@ -1260,33 +1270,36 @@ void buyProduct()
     }
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
     printf(BOLD_YELLOW "\n\nTotal Price: %.2f\n" RESET, totalPrice);
-    printf(BOLD_MAGENTA "\n\nThank you for purchasing :)\n" RESET);
 
-    // // suparshop may have a vat so added VAT percentage input
-    // float vatPercentage, amountGiven, change, vatAmount;
-    // printf(BOLD_CYAN "Enter VAT percentage: " RESET);
-    // scanf("%f", &vatPercentage);
 
-    // // Calculate VAT and final total price
-    // vatAmount = (totalPrice * vatPercentage) / 100;
-    // totalPrice += vatAmount;
+    // suparshop may have a vat so added VAT percentage input
+    float vatPercentage, amountGiven, change, vatAmount;
+    printf(BOLD_CYAN "\n\tEnter VAT percentage(if avilable): " RESET);
+    scanf("%f", &vatPercentage);
 
-    // printf(BOLD_WHITE "Total Price including VAT: %.2f\n" RESET, totalPrice);
+    // Calculate VAT and final total price
+    vatAmount = (totalPrice * vatPercentage) / 100;
+    totalPrice += vatAmount;
 
-    // // Keep asking for sufficient amount until the purchase is successful
-    // do {
-    //     printf(BOLD_GREEN "Enter amount given by the customer: " RESET);
-    //     scanf("%f", &amountGiven);
+    printf(BOLD_WHITE "\tTotal Price including VAT: %.2f\n" RESET, totalPrice);
 
-    //     if (amountGiven >= totalPrice) {
-    //         change = amountGiven - totalPrice;
-    //         printf(BOLD_RED "Change to be returned: %.2f\n" RESET, change);
-    //         break; // Exit loop if the amount given is sufficient
-    //     } else {
-    //         float amountNeeded = totalPrice - amountGiven;
-    //         printf("Insufficient amount. You need to give %.2f more.\n", amountNeeded);
-    //     }
-    // } while (1); // Loop until sufficient amount is given
+    // Keep asking for sufficient amount until the purchase is successful
+    do {
+        printf(BOLD_GREEN "\tEnter your amount: " RESET);
+        scanf("%f", &amountGiven);
+        getchar();
+        fflush(stdin);
+
+        if (amountGiven >= totalPrice) {
+            change = amountGiven - totalPrice;
+            printf(BOLD_RED "\tChange you will get: %.2f\n" RESET, change);
+            printf(BOLD_MAGENTA "\n\nThank you for purchasing :)\n" RESET);
+            break; // Exit loop if the amount given is sufficient
+        } else {
+            float amountNeeded = totalPrice - amountGiven;
+            printf(BOLD_RED"Insufficient amount. You need to give %.2f more.\n"RESET, amountNeeded);
+        }
+    } while (1); // Loop until sufficient amount is given
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Generate Bill Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

@@ -2,4 +2,6 @@
 103	Vegetable	Gajor	50.00	100.00
 104	Vegetable	Korolla	60.00	43.00
 105	Soap	Lux	65.00	97.00
-401	House Holding	Floor Cleaner	100.00	110.00
+401	House Keeping	Cleaning Moph	180.00	46.00
+402	House Keeping	Floor Cleaner	80.00	48.00
+403	Dish Washer	Glitter Washing Bar	60.00	98.00
