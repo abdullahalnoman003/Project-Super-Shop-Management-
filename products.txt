@@ -1,7 +1,10 @@
-102	Vegetable	Potol	29.00	0.00
-103	Vegetable	Gajor	50.00	100.00
-104	Vegetable	Korolla	60.00	43.00
-105	Soap	Lux	65.00	97.00
-401	House Keeping	Cleaning Moph	180.00	46.00
-402	House Keeping	Floor Cleaner	80.00	48.00
-403	Dish Washer	Glitter Washing Bar	60.00	98.00
+101	Vegetable	Potato	50.00	48.00
+102	Vegetable	Carrot	40.00	38.00
+201	Soap	Lux	60.00	30.00
+202	Soap	Dettol (mini)	10.00	40.00
+301	House Keeping	Kleen Floor Cleaner	120.00	10.00
+302	House Keeping	Cleaning Brush	80.00	30.00
+401	Shampoo	Dove	350.00	8.00
+501	Medicine	Paracitamole	10.00	100.00
+502	Medicine	Esomiprazole	6.00	90.00
+402	Shampoo	Select Plus	185.00	9.00
