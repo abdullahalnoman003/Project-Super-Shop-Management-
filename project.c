@@ -191,7 +191,13 @@ void menu()
             break;
         case 3:
             system("cls");
-            printf(BOLD_CYAN "\t\t<====Thank you for visiting our shop.====>\n     \t\t<====Stay Safe. :)====> \n\n\n\n" RESET);
+            printf(BOLD_MAGENTA "\n\n\t===============================================================================\n" RESET);
+            printf(   BOLD_GREEN "\t||                                                                           ||\n" RESET);
+            printf(BOLD_GREEN "\t||\t\t<====  Thank you for visiting our shop. ====>\t\t     ||\n" RESET);
+            printf(BOLD_GREEN "\t||\t\t\t<====  Stay Safe. :)  ====>\t\t\t     ||\n" RESET);
+            printf(   BOLD_GREEN "\t||                                                                           ||\n" RESET);
+            printf(BOLD_MAGENTA "\t===============================================================================\n\n\n\n\n\n\n\n" RESET);           
+
             break;
         default:
             printf(BOLD_RED "Please select a valid option.\n" RESET);
@@ -1319,7 +1325,6 @@ void buyProduct()
     printf(BOLD_CYAN "-----------------------------------------------------------------------\n" RESET);
     for (int i = 0; i < cartCount; i++)
     {
-        // printf("%-6d %-20s %-20s %-9d %.2f\n", cart[i].product.ID, cart[i].product.name, cart[i].product.category, cart[i].quantity, cart[i].totalPrice);
         printf(BOLD_RED "%-6d " RESET, cart[i].product.ID);
         printf(BOLD_GREEN "%-20s " RESET, cart[i].product.name);
         printf(BOLD_WHITE "%-20s " RESET, cart[i].product.category);
