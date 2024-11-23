@@ -773,7 +773,7 @@ void staffLogin()
     printf(BOLD_YELLOW "\tEnter Password: " RESET);
     scanf("%s", inputPassword);
     getchar();
-    printf(BOLD_CYAN "<================================================>\n\n" RESET);
+    printf(BOLD_CYAN "\n<================================================>\n\n" RESET);
 
     int loginSuccess = 0;
     while (fscanf(file, "%d\t%[^\t]\t%s\t%s\n", &s.id, s.name, s.username, s.password) != EOF)
