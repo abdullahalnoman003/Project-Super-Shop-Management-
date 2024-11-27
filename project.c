@@ -1287,6 +1287,15 @@ void modifyProduct()
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Buy Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+// Define the struct Product here (assuming the same structure as in the original code)
+
+
+
 void buyProduct()
 {
     struct Purchase
@@ -1296,6 +1305,7 @@ void buyProduct()
         int productID;
         int quantity;
         float totalPrice;
+        char timestamp[50];
     };
     struct CartItem
     {
@@ -1311,6 +1321,7 @@ void buyProduct()
     float totalPrice = 0.0;
     char addMore, choice;
     FILE *salesFile;
+    FILE *file, *tempFile;
 
     system("cls");
     printf(BOLD_YELLOW "<=====================================================================>\n\n" RESET);
@@ -1324,7 +1335,6 @@ void buyProduct()
     system("cls");
     if (choice == 'y' || choice == 'Y')
     {
-
         printf(BOLD_CYAN "\tPlease Fillup the information\n" RESET);
         printf(BOLD_YELLOW "<==============================================>\n\n" RESET);
         printf(BOLD_YELLOW "\tEnter your name: " RESET);
@@ -1365,7 +1375,6 @@ void buyProduct()
                         cart[cartCount].totalPrice = itemTotalPrice;
                         cartCount++;
                         fprintf(tempFile, "%d\t%s\t%s\t%.2f\t%.2f\n", p.ID, p.category, p.name, p.price, p.quantity);
-                        fprintf(salesFile, "%s\t%s\t%d\t%s\t%d\t%.2f\n", purchase.customerName, purchase.phoneNumber, p.ID, p.name, quantity, itemTotalPrice);
                         printf(BOLD_CYAN "\nProduct Purchased: %s\n" RESET, p.name);
                         printf(BOLD_MAGENTA "Total Price for this item: %.2f\n" RESET, itemTotalPrice);
                         printf(BOLD_GREEN "<===========================================================>\n" RESET);
@@ -1389,7 +1398,6 @@ void buyProduct()
             }
             fclose(file);
             fclose(tempFile);
-            fclose(salesFile);
             remove("products.txt");
             rename("temp.txt", "products.txt");
 
@@ -1417,9 +1425,9 @@ void buyProduct()
         printf(BOLD_CYAN "=======================================================================\n" RESET);
         printf(BOLD_YELLOW "\n\nTotal Price: %.2f\n" RESET, totalPrice);
 
-        // suparshop may have a vat so added VAT percentage input
+        // Add VAT percentage input
         float vatPercentage, amountGiven, change, vatAmount;
-        printf(BOLD_CYAN "\n\tEnter VAT percentage(if avilable): " RESET);
+        printf(BOLD_CYAN "\n\tEnter VAT percentage (if available): " RESET);
         scanf("%f", &vatPercentage);
 
         // Calculate VAT and final total price
@@ -1441,6 +1449,27 @@ void buyProduct()
                 change = amountGiven - totalPrice;
                 printf(BOLD_RED "\tChange you will get: %.2f\n" RESET, change);
                 printf(BOLD_MAGENTA "\n\nThank you for purchasing :)\n" RESET);
+
+                // Add timestamp
+                time_t now = time(NULL);
+                struct tm *t = localtime(&now);
+                strftime(purchase.timestamp, sizeof(purchase.timestamp) - 1, "%Y-%m-%d %H:%M:%S", t);
+
+                // Finalize the bill and write to sales.txt
+                salesFile = fopen("sales.txt", "a");
+                if (salesFile == NULL)
+                {
+                    printf(BOLD_RED "Error opening sales file for writing!\n" RESET);
+                    Sleep(2000);
+                    return;
+                }
+
+                for (int i = 0; i < cartCount; i++)
+                {
+                    fprintf(salesFile, "%s\t%s\t%d\t%s\t%d\t%.2f\t%s\n", purchase.customerName, purchase.phoneNumber, cart[i].product.ID, cart[i].product.name, cart[i].quantity, cart[i].totalPrice, purchase.timestamp);
+                }
+                fclose(salesFile);
+
                 break; // Exit loop if the amount given is sufficient
             }
             else
@@ -1451,11 +1480,11 @@ void buyProduct()
         } while (1); // Loop until sufficient amount is given
     }
 }
+
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Generate Bill Function  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 void generateSalesReport()
 {
-
     struct Purchase
     {
         char customerName[100];
@@ -1464,6 +1493,7 @@ void generateSalesReport()
         char productName[100];
         int quantity;
         float totalPrice;
+        char timestamp[50];
     };
 
     struct Purchase purchase;
@@ -1481,21 +1511,24 @@ void generateSalesReport()
     printf(BOLD_RED "    Product ID" RESET);
     printf(BOLD_YELLOW "   Product Name" RESET);
     printf(BOLD_CYAN "       Quantity" RESET);
-    printf(BOLD_MAGENTA "    Total Price\n" RESET);
-    printf(BOLD_MAGENTA "=================================================================================================\n" RESET);
+    printf(BOLD_MAGENTA "    Total Price" RESET);
+    printf(BOLD_GREEN "          Timestamp\n" RESET);
+    printf(BOLD_MAGENTA "====================================================================================================================\n" RESET);
 
-    while (fscanf(salesFile, "%99[^\t]\t%14[^\t]\t%d\t%99[^\t]\t%d\t%f\n", purchase.customerName, purchase.phoneNumber, &purchase.productID, purchase.productName, &purchase.quantity, &purchase.totalPrice) != EOF)
+    while (fscanf(salesFile, "%99[^\t]\t%14[^\t]\t%d\t%99[^\t]\t%d\t%f\t%49[^\n]\n", purchase.customerName, purchase.phoneNumber, &purchase.productID, purchase.productName, &purchase.quantity, &purchase.totalPrice, purchase.timestamp) != EOF)
     {
         printf(BOLD_YELLOW "%-23s" RESET, purchase.customerName);
         printf(BOLD_WHITE " %-15s" RESET, purchase.phoneNumber);
         printf(BOLD_RED " %-12d" RESET, purchase.productID);
         printf(BOLD_YELLOW " %-20s" RESET, purchase.productName);
         printf(BOLD_CYAN " %-10d" RESET, purchase.quantity);
-        printf(BOLD_MAGENTA " %.2f\n" RESET, purchase.totalPrice);
+        printf(BOLD_MAGENTA " %-10.2f" RESET, purchase.totalPrice);
+        printf(BOLD_GREEN " %-20s\n" RESET, purchase.timestamp);
     }
-    printf(BOLD_MAGENTA "=================================================================================================\n" RESET);
+    printf(BOLD_MAGENTA "====================================================================================================================\n" RESET);
     fclose(salesFile);
 }
+
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Low Stock Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void checkLowStock()
