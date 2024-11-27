@@ -559,7 +559,7 @@ void manageStaff()
 void viewStaffList()
 {
     struct Staff s;
-    FILE *file = fopen("staff.txt", "r");
+    file = fopen("staff.txt", "r");
     if (file == NULL)
     {
         printf(BOLD_RED "Error opening file!\n" RESET);
@@ -585,7 +585,7 @@ void viewStaffList()
 void addStaff()
 {
     struct Staff s;
-    FILE *file = fopen("staff.txt", "a+");
+    file = fopen("staff.txt", "a+");
     if (file == NULL)
     {
         printf("Error opening file!\n");
@@ -619,8 +619,8 @@ void removeStaff()
 {
     struct Staff s;
     int idToRemove;
-    FILE *file = fopen("staff.txt", "r");
-    FILE *tempFile = fopen("temp_staff.txt", "w");
+    file = fopen("staff.txt", "r");
+    tempFile = fopen("temp_staff.txt", "w");
     if (file == NULL || tempFile == NULL)
     {
         printf(BOLD_RED "Error opening file!\n" RESET);
@@ -678,8 +678,8 @@ void modifyStaff()
     {
         found = 0; // Reset the found flag for each iteration
         system("cls");
-        FILE *file = fopen("staff.txt", "r");
-        FILE *tempFile = fopen("temp_staff.txt", "w");
+        file = fopen("staff.txt", "r");
+        tempFile = fopen("temp_staff.txt", "w");
         if (file == NULL || tempFile == NULL)
         {
             printf(BOLD_RED "Error opening file!\n" RESET);
@@ -905,7 +905,7 @@ void addProduct()
 {
     struct Product p1;
     char choice;
-    FILE *file = fopen("products.txt", "a+");
+    file = fopen("products.txt", "a+");
     if (file == NULL)
     {
         printf(BOLD_RED "Error Opening Prodduct file!\n" RESET);
@@ -960,8 +960,8 @@ void deleteProduct()
     do
     {
         found = 0;
-        FILE *file = fopen("products.txt", "r");
-        FILE *tempFile = fopen("temp.txt", "w");
+        file = fopen("products.txt", "r");
+        tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL)
         {
             printf(BOLD_RED "Error opening Product file!\n" RESET);
@@ -1095,7 +1095,7 @@ void searchProduct()
     do
     {
         system("cls");
-        FILE *file = fopen("products.txt", "r");
+        file = fopen("products.txt", "r");
         if (file == NULL)
         {
             printf(BOLD_RED "Error opening Product file!\n" RESET);
@@ -1200,8 +1200,8 @@ void modifyProduct()
     {
         found = 0; // Reset the found flag for each iteration
         system("cls");
-        FILE *file = fopen("products.txt", "r");
-        FILE *tempFile = fopen("temp.txt", "w");
+        file = fopen("products.txt", "r");
+        tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL)
         {
             printf(BOLD_RED "Error opening Staff file. Check if the File is available or not!\n" RESET);
@@ -1535,7 +1535,7 @@ void checkLowStock()
 {
     struct Product p;
     int cnt = 0;
-    FILE *file = fopen("products.txt", "r");
+    file = fopen("products.txt", "r");
     if (file == NULL)
     {
         printf("Error opening Products file! Check if the file is Available...\n");
@@ -1596,7 +1596,7 @@ void backupData(const char *sourceFile, const char *backupFile)
 void giveReview()
 {
     struct Review r;
-    FILE *file = fopen("reviews.txt", "a+");
+    file = fopen("reviews.txt", "a+");
     if (file == NULL)
     {
         printf("Error opening file!\n");
@@ -1633,7 +1633,7 @@ void giveReview()
 void viewReviews()
 {
     struct Review r;
-    FILE *file = fopen("reviews.txt", "r");
+    file = fopen("reviews.txt", "r");
     if (file == NULL)
     {
         printf("Error opening file!\n");
