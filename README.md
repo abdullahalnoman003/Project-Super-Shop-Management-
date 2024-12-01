@@ -1,6 +1,6 @@
-# 🛒 **The Daily Market Management System**  
+# 🛒 **The Daily Market**  
 
-The **Daily Market Management System** is a powerful, console-based retail management solution built in **C programming language**. Designed for small to medium-sized businesses, this project handles inventory, sales, and staff operations seamlessly, ensuring efficient workflows for store owners and an intuitive shopping experience for customers.  
+The **Daily Market**, a Super Shop Management System is a powerful, console-based retail management solution built in **C programming language**. Designed for small to medium-sized businesses, this project handles inventory, sales, and staff operations seamlessly, ensuring efficient workflows for store owners and an intuitive shopping experience for customers.  
 
 ---
 
