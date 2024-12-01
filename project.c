@@ -576,7 +576,7 @@ void viewStaffList()
     printf(BOLD_CYAN "\n========================================================\n\n" RESET);
     fclose(file);
     printf(BOLD_GREEN "\nPress any key to return to the menu..." RESET);
-    getchar();
+    getch();
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Add Staff Members  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1285,9 +1285,6 @@ void modifyProduct()
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Buy Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-// Define the struct Product here (assuming the same structure as in the original code)
 
 void buyProduct()
 {
