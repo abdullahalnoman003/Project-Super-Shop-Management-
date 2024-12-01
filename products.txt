@@ -5,6 +5,7 @@
 301	House Keeping	Kleen Floor Cleaner	120.00	8.00
 302	House Keeping	Cleaning Brush	80.00	30.00
 401	Shampoo	Dove	350.00	7.00
-501	Medicine	Paracitamole	10.00	100.00
-502	Medicine	Esomiprazole	6.00	90.00
+501	Medicine	Paracetamole	10.00	100.00
+502	Medicine	Esomeprazole	6.00	90.00
 402	Shampoo	Select Plus	185.00	9.00
+601	Oil	Olive Oil	320.00	48.00

@@ -409,7 +409,6 @@ void admin()
                 {
                 case 0:
                     continue;
-                    ;
                 case 1:
                     viewProduct();
                     break;

@@ -1,4 +1,3 @@
 101	Abdullah Al Noman	noman	1003
 102	Adnan Iqbal	adnan	1024
 103	Rashedul Islam	rashed	1066
-104	Mehedi Hasan	mehedi	1019
