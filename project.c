@@ -89,7 +89,7 @@ FILE *tempFile;
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Main Function starting   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-void main(void)
+int main()
 {
     menu();
 }
@@ -301,7 +301,7 @@ void adminLogin()
         printf(BOLD_YELLOW "<============================================>\n\n" RESET);
         printf(CYAN "\tPlease Login to continue......\n\n" RESET);
         printf(BOLD_MAGENTA "\tEnter Username: " RESET);
-        scanf("%s", username); // username canbe one word
+        scanf("%s", username); // username can be one word
         getchar();             // consuming newline
         printf(BOLD_MAGENTA "\tEnter Password: " RESET);
         scanf("%s", password);
@@ -1203,7 +1203,7 @@ void modifyProduct()
         tempFile = fopen("temp.txt", "w");
         if (file == NULL || tempFile == NULL)
         {
-            printf(BOLD_RED "Error opening Staff file. Check if the File is available or not!\n" RESET);
+            printf(BOLD_RED "Error opening Product. Check if the File is available or not!\n" RESET);
             Sleep(2000);
             return;
         }
@@ -1286,10 +1286,6 @@ void modifyProduct()
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Buy Product Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 // Define the struct Product here (assuming the same structure as in the original code)
 
