@@ -303,9 +303,27 @@ void adminLogin()
         printf(BOLD_MAGENTA "\tEnter Username: " RESET);
         scanf("%s", username); // username can be one word
         getchar();             // consuming newline
+
         printf(BOLD_MAGENTA "\tEnter Password: " RESET);
-        scanf("%s", password);
-        getchar(); // consuming new line
+        int i = 0;
+        char ch;
+        while ((ch = getch()) != '\r') // Enter key as delimiter
+        {
+            if (ch == '\b') // Backspace handling
+            {
+                if (i > 0)
+                {
+                    i--;
+                    printf("\b \b");
+                }
+            }
+            else if (i < sizeof(password) - 1)
+            {
+                password[i++] = ch;
+                printf("*");
+            }
+        }
+        password[i] = '\0';
 
         if (strcmp(username, ADMIN_USERNAME) == 0 && strcmp(password, ADMIN_PASSWORD) == 0)
         {
@@ -796,9 +814,28 @@ void staffLogin()
     printf(BOLD_YELLOW "\tEnter Username: " RESET);
     scanf("%s", inputUsername);
     getchar();
+
     printf(BOLD_YELLOW "\tEnter Password: " RESET);
-    scanf("%s", inputPassword);
-    getchar();
+    int i = 0;
+    char ch;
+    while ((ch = getch()) != '\r') // Enter key as delimiter
+    {
+        if (ch == '\b') // Backspace handling
+        {
+            if (i > 0)
+            {
+                i--;
+                printf("\b \b");
+            }
+        }
+        else if (i < sizeof(inputPassword) - 1)
+        {
+            inputPassword[i++] = ch;
+            printf("*");
+        }
+    }
+    inputPassword[i] = '\0';
+
     printf(BOLD_CYAN "\n<================================================>\n\n" RESET);
 
     int loginSuccess = 0;
@@ -826,6 +863,7 @@ void staffLogin()
         Sleep(3000);
     }
 }
+
 // // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Staff Menu >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void staffMenu(const char *staffName)
 {
